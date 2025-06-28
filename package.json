@@ -1,7 +1,7 @@
 {
-  "name": "top-restaurant-landing-page",
+  "name": "top-todo-list-app",
   "version": "1.0.0",
-  "description": "Mock restaurant landing page",
+  "description": "Todo list app for The Odin Project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/earnestabromjr/TOP-Restaurant-Landing-Page.git"
+    "url": "git+https://github.com/earnestabromjr/TOP-ToDo-List-App.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/earnestabromjr/TOP-Restaurant-Landing-Page/issues"
+    "url": "https://github.com/earnestabromjr/TOP-ToDo-List-App/issues"
   },
-  "homepage": "https://github.com/earnestabromjr/TOP-Restaurant-Landing-Page#readme",
+  "homepage": "https://github.com/earnestabromjr/TOP-ToDo-List-App#readme",
   "devDependencies": {
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
