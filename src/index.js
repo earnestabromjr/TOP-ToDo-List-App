@@ -1,3 +1,5 @@
-import './styles.css';
-import './loader.js';
-import './todo.js';
+import "./style.css";
+import { Todo } from './todo.js';
+
+const todo = new Todo();
+console.log(todo);

@@ -18,9 +18,12 @@ export class Todo {
         this.completed = todo.completed;
         this.id = todo.id;
     }
-    todoInstances = {};
+    todoInstances = [];
 
     addTodo(todo) {
+        if (todo.id in this.todoInstances) {
+            return;
+        }
         this.todoInstances[todo.id] = todo;
         return todo;
     }
