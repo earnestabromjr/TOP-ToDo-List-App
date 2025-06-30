@@ -1,6 +1,7 @@
 import {userDate} from "./user";
 
 const todo = {
+    id: "",
     title: "",
     dueDate: null,
     priority: 0,
@@ -15,8 +16,14 @@ export class Todo {
         this.priority = todo.priority;
         this.description = todo.description;
         this.completed = todo.completed;
+        this.id = todo.id;
     }
-    todoInstances = [];
+    todoInstances = {};
+
+    addTodo(todo) {
+        this.todoInstances[todo.id] = todo;
+        return todo;
+    }
 
     setDescription(description) {
         this.description = description;
