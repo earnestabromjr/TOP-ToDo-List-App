@@ -2,7 +2,7 @@ import {userDate} from "./user";
 
 const todo = {
     title: "",
-    dueDate: Date(),
+    dueDate: null,
     priority: 0,
     description: "",
     completed: false
@@ -21,7 +21,7 @@ export class Todo {
         this.description = description;
     }
 
-    setDueDate(dueDate,date) {
+    setDueDate(dueDate) {
         this.dueDate = new Date();
         this.dueDate.setDate(dueDate.getDate() + userDate.day);
         this.dueDate.setMonth(dueDate.getMonth() + userDate.month);
