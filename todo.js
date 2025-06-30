@@ -16,6 +16,7 @@ export class Todo {
         this.description = todo.description;
         this.completed = todo.completed;
     }
+    todoInstances = [];
 
     setDescription(description) {
         this.description = description;
@@ -30,5 +31,17 @@ export class Todo {
 
     setPriority(priority) {
         this.priority = priority;
+    }
+
+    toggleComplete() {
+        this.completed = !this.completed;
+    }
+
+    toJson() {
+
+    }
+
+    static fromJson(json) {
+
     }
 }
