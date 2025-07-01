@@ -5,3 +5,9 @@ export const userDate = (day, month, year) => {
         year: year
     }
 }
+
+export class User {
+    getUserInfo() {
+
+    }
+}

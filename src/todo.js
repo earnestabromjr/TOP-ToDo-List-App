@@ -28,10 +28,6 @@ export class Todo {
         return todo;
     }
 
-    setDescription(description) {
-        this.description = description;
-    }
-
     setDueDate(dueDate) {
         this.dueDate = new Date();
         this.dueDate.setDate(dueDate.getDate() + userDate.day);
@@ -39,12 +35,12 @@ export class Todo {
         this.dueDate.setFullYear(dueDate.getFullYear() + userDate.year);
     }
 
-    setPriority(priority) {
-        this.priority = priority;
+    setProperty(property, value) {
+        this[property] = value;
     }
 
-    toggleComplete() {
-        this.completed = !this.completed;
+    getProperty(property) {
+        return this[property];
     }
 
     toJson() {
