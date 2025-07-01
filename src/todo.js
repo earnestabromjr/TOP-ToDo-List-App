@@ -1,38 +1,54 @@
 import {userDate} from "./user";
+import {add} from "date-fns";
 
-const todo = {
-    id: "",
-    title: "",
-    dueDate: null,
-    priority: 0,
-    description: "",
-    completed: false
+export const PRIORITY = {
+    LOW: 1,
+    MEDIUM: 2,
+    HIGH: 3
 }
 
 export class Todo {
-    constructor(todo) {
-        this.title = todo.title;
-        this.dueDate = todo.dueDate;
-        this.priority = todo.priority;
-        this.description = todo.description;
-        this.completed = todo.completed;
-        this.id = todo.id;
-    }
-    todoInstances = [];
+    static instances = new Map();
 
-    addTodo(todo) {
-        if (todo.id in this.todoInstances) {
-            return;
+    constructor({
+                    id = Date.now().toString(),
+                    title = "",
+                    dueDate = null,
+                    priority = PRIORITY.LOW,
+                    description = "",
+                    completed = false
+                }) {
+        this.title = title;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.description = description;
+        this.completed = completed;
+        this.id = id;
+    }
+
+    static addTodo(todo) {
+        if (!(todo instanceof Todo)) {
+            todo = new Todo(todo);
         }
-        this.todoInstances[todo.id] = todo;
+        this.instances.set(todo.id, todo);
         return todo;
     }
 
+    static get(id) {
+        return this.instances.get(id);
+    }
+
     setDueDate(dueDate) {
-        this.dueDate = new Date();
-        this.dueDate.setDate(dueDate.getDate() + userDate.day);
-        this.dueDate.setMonth(dueDate.getMonth() + userDate.month);
-        this.dueDate.setFullYear(dueDate.getFullYear() + userDate.year);
+        if (!dueDate) {
+            this.dueDate = null;
+            return;
+        }
+        const d = dueDate instanceof Date ? dueDate : new Date(dueDate);
+        this.dueDate = add(d, {
+            years: userDate.year,
+            months: userDate.month,
+            days: userDate.day
+        })
     }
 
     setProperty(property, value) {
@@ -44,10 +60,20 @@ export class Todo {
     }
 
     toJson() {
-
+        return {
+            id: this.id,
+            title: this.title,
+            dueDate: this.dueDate?.toISOString(),
+            priority: this.priority,
+            description: this.description,
+            completed: this.completed
+        }
     }
 
     static fromJson(json) {
-
+        return new Todo({
+            ...json,
+            dueDate: json.dueDate ? new Date(json.dueDate) : null
+        });
     }
 }
