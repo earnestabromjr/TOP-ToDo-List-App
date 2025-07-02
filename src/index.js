@@ -2,13 +2,14 @@ import "./style.css";
 import { Todo } from './todo.js';
 
 const todo = {
-    id: Math.floor(Math.random() * 1000),
     title: "Learn JavaScript",
-    dueDate: new Date(),
+    dueDate: Date.now(),
     priority: 1,
     description: "Learn JavaScript by watching the tutorial",
     completed: false
 }
 
 const todoInstance = new Todo(todo);
-console.log(todo);
+console.log(todoInstance.getProperty("completed"));
+todoInstance.setProperty("completed", true);
+console.log(todoInstance.getProperty("completed"));

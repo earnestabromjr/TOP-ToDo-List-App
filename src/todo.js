@@ -13,7 +13,7 @@ export class Todo {
     constructor({
                     id = Date.now().toString(),
                     title = "",
-                    dueDate = null,
+                    dueDate = Date.now(),
                     priority = PRIORITY.LOW,
                     description = "",
                     completed = false
@@ -56,6 +56,9 @@ export class Todo {
     }
 
     getProperty(property) {
+        if (property === "dueDate") {
+            return this.dueDate?.toString();
+        }
         return this[property];
     }
 
@@ -63,7 +66,7 @@ export class Todo {
         return {
             id: this.id,
             title: this.title,
-            dueDate: this.dueDate?.toISOString(),
+            dueDate: this.dueDate?.toString(),
             priority: this.priority,
             description: this.description,
             completed: this.completed
