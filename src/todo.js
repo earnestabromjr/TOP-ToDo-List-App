@@ -1,5 +1,6 @@
 import {userDate} from "./user";
 import {add} from "date-fns";
+import {v4 as uuidv4} from "uuid";
 
 export const PRIORITY = {
     LOW: 1,
@@ -11,7 +12,7 @@ export class Todo {
     static instances = new Map();
 
     constructor({
-                    id = Date.now().toString(),
+                    id = uuidv4(),
                     title = "",
                     dueDate = Date.now(),
                     priority = PRIORITY.LOW,
