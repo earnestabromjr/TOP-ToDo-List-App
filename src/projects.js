@@ -1,3 +1,5 @@
+import {Todo} from "./todo";
+
 export class Project {
     constructor({
                     name = "",
@@ -43,7 +45,7 @@ export class Project {
             return new Project({
                 name: json.name,
                 projectArray: json.projectArray
-                    ? json.projectArray.map(todoJson => Todo.fromJSON(todoJson))
+                    ? json.projectArray.map(todoJson => Todo.fromJson(todoJson))
                     : []
             });
         } catch (error) {
