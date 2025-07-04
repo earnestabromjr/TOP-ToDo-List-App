@@ -3,40 +3,40 @@ import {Todo} from "./todo";
 export class Project {
     constructor({
                     name = "",
-                    projectArray = []
+                    todoArray = []
                 }) {
         this.name = name;
-        this.projectArray = [];
+        this.todoArray = [];
     }
 
     addTodo(todo) {
-        if (!this.projectArray.includes(todo)) {
-            this.projectArray.push(todo);
-            return this.projectArray;
+        if (!this.todoArray.includes(todo)) {
+            this.todoArray.push(todo);
+            return this.todoArray;
         }
     }
 
     removeTodo(todo) {
-        const index = this.projectArray.indexOf(todo);
+        const index = this.todoArray.indexOf(todo);
         if (index > -1) {
-            this.projectArray.splice(index, 1);
-            return this.projectArray;
+            this.todoArray.splice(index, 1);
+            return this.todoArray;
         }
         return null;
     }
 
     getTodos() {
-        return this.projectArray;
+        return this.todoArray;
     }
 
     getTodoById(id) {
-        return this.projectArray.find(todo => todo.id === id);
+        return this.todoArray.find(todo => todo.id === id);
     }
 
     toJSON() {
         return {
             name: this.name,
-            projectArray: this.projectArray.map(todo => todo.toJSON())
+            todoArray: this.todoArray.map(todo => todo.toJSON())
         };
     }
 
@@ -44,8 +44,8 @@ export class Project {
         try {
             return new Project({
                 name: json.name,
-                projectArray: json.projectArray
-                    ? json.projectArray.map(todoJson => Todo.fromJson(todoJson))
+                todoArray: json.todoArray
+                    ? json.todoArray.map(todoJson => Todo.fromJson(todoJson))
                     : []
             });
         } catch (error) {
