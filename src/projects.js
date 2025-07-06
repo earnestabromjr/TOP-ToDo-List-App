@@ -3,10 +3,10 @@ import {Todo} from "./todo";
 export class Project {
     constructor({
                     name = "",
-                    todoArray = []
+                    todos = new Map(),
                 }) {
         this.name = name;
-        this.todoArray = [];
+        this.todos = todos;
     }
     addName(name) {
         if (name && typeof name === "string") {
@@ -17,33 +17,32 @@ export class Project {
     }
 
     addTodo(todo) {
-        if (!this.todoArray.includes(todo)) {
-            this.todoArray.push(todo);
-            return this.todoArray;
+        if (!this.todos.has(name)) {
+            this.todos.set(todo.id, todo);
+            return this.todos;
         }
     }
 
+
     removeTodo(todo) {
-        const index = this.todoArray.indexOf(todo);
-        if (index > -1) {
-            this.todoArray.splice(index, 1);
-            return this.todoArray;
-        }
-        return null;
+       if (this.todos.size === 0) {
+           return this.todos;
+       }
+       this.todos.delete(todo.id);
     }
 
     getTodos() {
-        return this.todoArray;
+        return this.todos;
     }
 
     getTodoById(id) {
-        return this.todoArray.find(todo => todo.id === id);
+        return this.todos.find(todo => todo.id === id);
     }
 
     toJSON() {
         return {
             name: this.name,
-            todoArray: this.todoArray.map(todo => todo.toJSON())
+            todos: this.todos.map(todo => todo.toJSON())
         };
     }
 
@@ -51,8 +50,8 @@ export class Project {
         try {
             return new Project({
                 name: json.name,
-                todoArray: json.todoArray
-                    ? json.todoArray.map(todoJson => Todo.fromJson(todoJson))
+                todos: json.todos
+                    ? json.todos.map(todoJson => Todo.fromJson(todoJson))
                     : []
             });
         } catch (error) {

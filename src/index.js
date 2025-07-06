@@ -22,7 +22,7 @@ const todo = {
 const todoInstance = new Todo(todo);
 project.addTodo(todoInstance);
 todoInstance.setProperty("completed", true);
-console.log(project);
+console.log(project.getTodos());
 
 const content = document.querySelector("#content");
 const card = document.createElement("div");

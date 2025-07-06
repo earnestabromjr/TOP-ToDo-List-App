@@ -16,6 +16,7 @@ export class ProjectManager {
             this.projects.push(project);
             return this.projects;
         }
+        return "Project already exists";
     }
 
     removeProject(project) {
