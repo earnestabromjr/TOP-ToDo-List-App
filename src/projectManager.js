@@ -4,9 +4,11 @@ export class ProjectManager {
     constructor({
         projects = [],
         currentProjectId = uuidv4(),
+        storageManager
                 }) {
     this.projects = projects;
     this.currentProjectId = currentProjectId;
+    this.storageManager = storageManager;
     }
 
     addProject(project) {

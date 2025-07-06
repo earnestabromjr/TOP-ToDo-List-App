@@ -1,15 +1,14 @@
 export class StorageManager {
-    saveData(project) {
-        localStorage.setItem(project.id, project.toJSON())
+    saveData(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
     };
 
-    loadData(project) {
-        if (project.id) {
-            const data = localStorage.getItem(project.id);
+    loadData(key) {
+        if (key in localStorage) {
+            const data = localStorage.getItem(key);
             if (data) {
                 try {
-                    const parsedData = JSON.parse(data);
-                    return project.fromJSON(parsedData);
+                    return JSON.parse(data);
                 } catch (error) {
                     console.error("Failed to parse project data from localStorage:", error);
                 }
