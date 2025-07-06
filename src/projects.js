@@ -8,6 +8,13 @@ export class Project {
         this.name = name;
         this.todoArray = [];
     }
+    addName(name) {
+        if (name && typeof name === "string") {
+            this.name = name;
+            return this.name;
+        }
+        return null;
+    }
 
     addTodo(todo) {
         if (!this.todoArray.includes(todo)) {

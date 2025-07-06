@@ -4,6 +4,13 @@ import { Project } from "./projects";
 import { ProjectManager } from "./projectManager";
 import { StorageManager } from "./storageManager";
 
+const project = new Project({});
+project.addName("My First Project");
+const storageManager = new StorageManager();
+const projectManager = new ProjectManager({
+    storageManager: storageManager
+});
+
 const todo = {
     title: "Learn JavaScript",
     dueDate: Date.now(),
@@ -13,9 +20,9 @@ const todo = {
 }
 
 const todoInstance = new Todo(todo);
-console.log(todoInstance.getProperty("completed"));
+project.addTodo(todoInstance);
 todoInstance.setProperty("completed", true);
-console.log(todoInstance.getProperty("completed"));
+console.log(project);
 
 const content = document.querySelector("#content");
 const card = document.createElement("div");

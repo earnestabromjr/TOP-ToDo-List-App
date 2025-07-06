@@ -27,8 +27,8 @@ export class ProjectManager {
         return null;
     }
 
-    getProject() {
-
+    getProject(projects) {
+        return this.projects.find((project) => project.id === project);
     }
 
     getAllProjects() {
