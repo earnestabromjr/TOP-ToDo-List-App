@@ -32,6 +32,9 @@ project.addTodo(Todo.addTodo({
     completed: false
 }))
 
+projectManager.addProject(project);
+projectManager.saveToLocalStorage();
+
 const content = document.querySelector("#content");
 const card = document.createElement("div");
 

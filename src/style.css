@@ -2,10 +2,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: "Adwaita Mono", monospace;
-    background: #FFFFFF;
-    background: var(--grad-color3), var(--grad-color2);
-    font-family: var(--my-font, monospace);
+    background: beige;
+    --bg-color: biege;
+    --my-font: "Droid Sans", sans-serif;
+    font-family: "Adwaita Sans", sans-serif;
 }
 
 header {
@@ -26,12 +26,12 @@ nav {
     align-items: center;
     width: 100%;
     height: 50px;
-    background-color: var(--grad-color);
+    background-color: var(--bg-color);
     color: white;
 }
 nav button {
     background-color: #bd537c;
-    background: var(--grad-color3);
+    background: var(--bg-color);
     color: saddlebrown;
     border: none;
     padding: 10px 20px;
@@ -66,5 +66,5 @@ nav button {
 #menu {
     display: flex;
     flex-direction: row;
-    background-color: var(--grad-color2);
+    background-color: var(--bg-color);
 }
