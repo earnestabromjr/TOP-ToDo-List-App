@@ -4,9 +4,11 @@ export class Project {
     constructor({
                     name = "",
                     todos = new Map(),
+                    id = undefined
                 }) {
         this.name = name;
         this.todos = todos;
+        this.id = id || crypto.randomUUID();
     }
     addName(name) {
         if (name && typeof name === "string") {
@@ -42,22 +44,24 @@ export class Project {
     toJSON() {
         return {
             name: this.name,
-            todos: this.todos.map(todo => todo.toJSON())
-        };
-    }
-
-    static fromJSON(json) {
-        try {
-            return new Project({
-                name: json.name,
-                todos: json.todos
-                    ? json.todos.map(todoJson => Todo.fromJson(todoJson))
-                    : []
-            });
-        } catch (error) {
-            console.error("Failed to parse Project from JSON:", error);
-            return null;
+            id: this.id,
+            todos: Array.from(this.todos.values()).map(todo => todo.toJSON())
         }
     }
+
+   static fromJSON(json) {
+       const todosMap = new Map();
+       if (Array.isArray(json.todos)) {
+           json.todos.forEach(todoJson => {
+               const todo = Todo.fromJSON(todoJson);
+               todosMap.set(todo.id, todo);
+           });
+       }
+       return new Project({
+           name: json.name,
+           id: json.id,
+           todos: todosMap
+       });
+   }
 
 }

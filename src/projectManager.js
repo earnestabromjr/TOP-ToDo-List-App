@@ -1,14 +1,15 @@
 import {v4 as uuidv4} from "uuid";
+import {Project} from "./projects";
 
 export class ProjectManager {
     constructor({
-        projects = [],
-        currentProjectId = uuidv4(),
-        storageManager
+                    projects = [],
+                    currentProjectId = uuidv4(),
+                    storageManager
                 }) {
-    this.projects = projects;
-    this.currentProjectId = currentProjectId;
-    this.storageManager = storageManager;
+        this.projects = projects;
+        this.currentProjectId = currentProjectId;
+        this.storageManager = storageManager;
     }
 
     addProject(project) {
@@ -35,6 +36,7 @@ export class ProjectManager {
     getAllProjects() {
 
     }
+
     setCurrentProject(projectId) {
         this.currentProjectId = projectId;
     }
@@ -43,19 +45,19 @@ export class ProjectManager {
         return this.projects.find(project => project.id === this.currentProjectId);
     }
 
+
     saveToLocalStorage() {
-        localStorage.setItem("projects", JSON.stringify(this.projects));
-        localStorage.setItem("currentProjectId", this.currentProjectId);
+        const projectsData = this.projects.map(project => project.toJSON());
+        this.storageManager.saveData('projects', projectsData);
+        this.storageManager.saveData('currentProjectId', this.currentProjectId);
     }
 
     loadFromLocalStorage() {
-        const projectsData = localStorage.getItem("projects");
-        const currentProjectId = localStorage.getItem("currentProjectId");
-
+        const projectsData = this.storageManager.loadData('projects');
+        const currentProjectId = this.storageManager.loadData('currentProjectId');
         if (projectsData) {
-            this.projects = JSON.parse(projectsData);
+            this.projects = projectsData.map(json => Project.fromJSON(json));
         }
-
         if (currentProjectId) {
             this.currentProjectId = currentProjectId;
         }

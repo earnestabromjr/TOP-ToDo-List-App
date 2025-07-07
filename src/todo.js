@@ -63,7 +63,7 @@ export class Todo {
         return this[property];
     }
 
-    toJson() {
+    toJSON() {
         return {
             id: this.id,
             title: this.title,
@@ -74,7 +74,7 @@ export class Todo {
         }
     }
 
-    static fromJson(json) {
+    static fromJSON(json) {
         return new Todo({
             ...json,
             dueDate: json.dueDate ? new Date(json.dueDate) : null

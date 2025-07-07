@@ -24,6 +24,14 @@ project.addTodo(todoInstance);
 todoInstance.setProperty("completed", true);
 console.log(project.getTodos());
 
+project.addTodo(Todo.addTodo({
+    title: "Finish Project",
+    dueDate: Date.now(),
+    priority: 2,
+    description: "Complete the project by the end of the week",
+    completed: false
+}))
+
 const content = document.querySelector("#content");
 const card = document.createElement("div");
 
