@@ -3,6 +3,7 @@ import { Todo } from './todo.js';
 import { Project } from "./projects";
 import { ProjectManager } from "./projectManager";
 import { StorageManager } from "./storageManager";
+import { load_default_page} from "./todoui";
 
 const project = new Project({});
 project.addName("My First Project");
@@ -35,6 +36,15 @@ project.addTodo(Todo.addTodo({
 projectManager.addProject(project);
 projectManager.saveToLocalStorage();
 
+const storedProjects = storageManager.loadData('projects');
+storedProjects.forEach(projectData => {
+    const projectFromStorage = Project.fromJSON(projectData);
+    console.log(`Project Name: ${projectFromStorage.name}`);
+    console.log(`Project ID: ${projectFromStorage.id}`);
+    console.log(`Todos: ${Array.from(projectFromStorage.getTodos().values()).map(todo => todo.title).join(", ")}`);
+});
+console.log(storedProjects);
+
 const content = document.querySelector("#content");
 const card = document.createElement("div");
 
@@ -43,3 +53,5 @@ card.textContent = todoInstance.getProperty("title");
 card.classList.add("card");
 
 content.append(card);
+
+load_default_page(projectManager, storageManager)

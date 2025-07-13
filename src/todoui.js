@@ -3,13 +3,13 @@ import {StorageManager} from "./storageManager";
 import {Project} from "./projects";
 
 
-export function load_default_page() {
+export function load_default_page(projectManager, storageManager) {
     try {
-        const projectManager = new ProjectManager({
-            storageManager: new StorageManager()
-        });
-        projectManager.loadFromLocalStorage();
-        const projects = projectManager.getAllProjects();
+        // const projectManager = new ProjectManager({
+        //     storageManager: new StorageManager()
+        // });
+        const storedProjects = storageManager.loadData('projects');
+        const projects = storedProjects.map(projectData => Project.fromJSON(projectData));
         if (projects.length > 0) {
             const defaultProject = projectManager.getCurrentProject();
         } else {
