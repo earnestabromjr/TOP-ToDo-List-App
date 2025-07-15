@@ -11,7 +11,7 @@ export class TodoUI {
         });
         this.storageManager = new StorageManager();
         this.uiElements = {
-            content: document.querySelector("#content"),
+            content: document.getElementById("content"),
             projectSidebar: document.createElement("div"),
             projectManagerCard: document.getElementById("projects"),
             projectManagerTitle: document.createElement("h2")
@@ -35,7 +35,6 @@ export class TodoUI {
             }
 
             this.uiElements.content.textContent = "";
-
             this.uiElements.projectManagerCard.classList.add("project-manager-card");
 
             if (projects.length > 0) {
@@ -50,6 +49,8 @@ export class TodoUI {
                     this.uiElements.projectManagerCard.appendChild(projectCard);
                 });
             }
+            this.uiElements.projectManagerTitle.textContent = "Projects";
+            this.uiElements.content.appendChild(this.uiElements.projectManagerTitle)
             this.uiElements.content.appendChild(this.uiElements.projectManagerCard);
         } catch (error) {
             console.error("Error loading default page:", error);
