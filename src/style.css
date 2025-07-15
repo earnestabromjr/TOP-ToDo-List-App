@@ -1,5 +1,7 @@
 body {
-    display: flex;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr 3fr;
     flex-direction: column;
     align-items: center;
     background: beige;
@@ -9,9 +11,11 @@ body {
 }
 
 header {
+    grid-column: 1 / -1;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-start;
 }
 
 img {
@@ -22,7 +26,7 @@ img {
 nav {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 50px;
@@ -42,18 +46,24 @@ nav button {
 }
 
 #content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    justify-content: space-evenly;
+    padding: 10px;
+    height: 100vh;
+}
+
+#todos {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-}
-
-#content h1 {
-    font-family: "Droid Sans", sans-serif;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    font-weight: 700;
-    font-size: 3rem;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    height: 100vh;
 }
 
 #content h2 {
