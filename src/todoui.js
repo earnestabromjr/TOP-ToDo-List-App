@@ -57,4 +57,27 @@ export class TodoUI {
             this.uiElements.content.textContent = "Failed to load projects. Please try again later.";
         }
     }
+    loadTodoPage(project){
+        try {
+            this.uiElements.content.textContent = "";
+            const todoList = document.createElement("div");
+            todoList.classList.add("todo-list");
+
+            project.getTodos().forEach(todo => {
+                const todoCard = document.createElement("div");
+                todoCard.classList.add("todo-card");
+                todoCard.textContent = todo.title;
+                todoCard.addEventListener("click", () => {
+                    // Handle todo click, e.g., show details or edit
+                    console.log(`Todo clicked: ${todo.title}`);
+                });
+                todoList.appendChild(todoCard);
+            });
+
+            this.uiElements.content.appendChild(todoList);
+        } catch (error) {
+            console.error("Error loading Todo page:", error);
+            this.uiElements.content.textContent = "Failed to load todos. Please try again later.";
+        }
+    }
 }
