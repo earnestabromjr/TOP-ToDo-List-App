@@ -23,7 +23,7 @@ const todo = {
 const todoInstance = new Todo(todo);
 project.addTodo(todoInstance);
 todoInstance.setProperty("completed", true);
-console.log(project.getTodos());
+// console.log(project.getTodos());
 
 project.addTodo(Todo.addTodo({
     title: "Finish Project",
@@ -37,15 +37,18 @@ projectManager.addProject(project);
 projectManager.saveToLocalStorage();
 
 const storedProjects = storageManager.loadData('projects');
-storedProjects.forEach(projectData => {
-    const projectFromStorage = Project.fromJSON(projectData);
-    console.log(`Project Name: ${projectFromStorage.name}`);
-    console.log(`Project ID: ${projectFromStorage.id}`);
-    console.log(`Todos: ${Array.from(projectFromStorage.getTodos().values()).map(todo => todo.title).join(", ")}`);
-});
-console.log(storedProjects);
+console.log(storedProjects[0].name);
+function createProjectArray(storedProjects) {
+    storedProjects.forEach(projectData => {
+        const projectsArray = [];
+        projectsArray.push(projectData);
+        return projectsArray;
+    })
+}
+const projects = createProjectArray(storedProjects);
+console.log(project.getTodos());
 
-const content = document.querySelector("#content");
+// const content = document.querySelector("#content");
 // const card = document.createElement("div");
 
 // card.textContent = todoInstance.getProperty("title");
@@ -54,5 +57,6 @@ const content = document.querySelector("#content");
 
 // content.append(card);
 const ui = new TodoUI();
-console.log(ui.uiElements)
+// console.log(ui.uiElements)
 ui.load_default_page(projectManager, storageManager)
+// ui.loadTodoPage(project);

@@ -63,7 +63,7 @@ export class TodoUI {
             const todoList = document.createElement("div");
             todoList.classList.add("todo-list");
 
-            project.getTodos().forEach(todo => {
+            project.forEach(todo => {
                 const todoCard = document.createElement("div");
                 todoCard.classList.add("todo-card");
                 todoCard.textContent = todo.title;

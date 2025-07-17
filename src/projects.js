@@ -34,7 +34,9 @@ export class Project {
     }
 
     getTodos() {
-        return this.todos;
+        for (const todo of this.todos.values()) {
+            console.log(todo)
+        }
     }
 
     getTodoById(id) {
