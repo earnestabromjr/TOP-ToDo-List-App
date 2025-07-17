@@ -38,12 +38,13 @@ projectManager.saveToLocalStorage();
 
 const storedProjects = storageManager.loadData('projects');
 console.log(storedProjects[0].name);
+
 function createProjectArray(storedProjects) {
+    const projectsArray = [];
     storedProjects.forEach(projectData => {
-        const projectsArray = [];
         projectsArray.push(projectData);
-        return projectsArray;
     })
+    return projectsArray;
 }
 const projects = createProjectArray(storedProjects);
 console.log(project.getTodos());

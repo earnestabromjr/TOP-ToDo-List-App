@@ -34,9 +34,11 @@ export class Project {
     }
 
     getTodos() {
+        let todosArray = [];
         for (const todo of this.todos.values()) {
-            console.log(todo)
+            todosArray.push(todo)
         }
+        return todosArray;
     }
 
     getTodoById(id) {
