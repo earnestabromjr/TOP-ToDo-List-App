@@ -60,4 +60,4 @@ console.log(project.getTodos());
 const ui = new TodoUI();
 // console.log(ui.uiElements)
 ui.load_default_page(projectManager, storageManager)
-// ui.loadTodoPage(project);
+ui.loadTodoPage(projects);
