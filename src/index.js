@@ -46,7 +46,6 @@ function createProjectArray(storedProjects) {
     })
     return projectsArray;
 }
-const projects = createProjectArray(storedProjects);
 console.log(project.getTodos());
 
 // const content = document.querySelector("#content");
@@ -60,4 +59,4 @@ console.log(project.getTodos());
 const ui = new TodoUI();
 // console.log(ui.uiElements)
 ui.load_default_page(projectManager, storageManager)
-ui.loadTodoPage(projects);
+ui.loadTodoPage(project.getTodos());

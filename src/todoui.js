@@ -11,10 +11,12 @@ export class TodoUI {
         });
         this.storageManager = new StorageManager();
         this.uiElements = {
+            body: document.querySelector("body"),
             content: document.getElementById("content"),
             projectSidebar: document.createElement("div"),
             projectManagerCard: document.getElementById("projects"),
-            projectManagerTitle: document.createElement("h2")
+            projectManagerTitle: document.createElement("h2"),
+            todos: document.getElementById("todos"),
         };
     }
 
@@ -59,7 +61,7 @@ export class TodoUI {
     }
     loadTodoPage(project){
         try {
-            this.uiElements.content.textContent = "";
+            this.uiElements.todos.textContent = "";
             const todoList = document.createElement("div");
             todoList.classList.add("todo-list");
 
@@ -74,7 +76,7 @@ export class TodoUI {
                 todoList.appendChild(todoCard);
             });
 
-            this.uiElements.content.appendChild(todoList);
+            this.uiElements.todos.appendChild(todoList);
         } catch (error) {
             console.error("Error loading Todo page:", error);
             this.uiElements.content.textContent = "Failed to load todos. Please try again later.";
