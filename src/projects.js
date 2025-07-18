@@ -1,11 +1,11 @@
-import {Todo} from "./todo";
+import { Todo } from "./todo";
 
 export class Project {
     constructor({
-                    name = "",
-                    todos = new Map(),
-                    id = undefined
-                }) {
+        name = "",
+        todos = new Map(),
+        id = undefined
+    }) {
         this.name = name;
         this.todos = todos;
         this.id = id || crypto.randomUUID();
@@ -27,10 +27,10 @@ export class Project {
 
 
     removeTodo(todo) {
-       if (this.todos.size === 0) {
-           return this.todos;
-       }
-       this.todos.delete(todo.id);
+        if (this.todos.size === 0) {
+            return this.todos;
+        }
+        this.todos.delete(todo.id);
     }
 
     getTodos() {
@@ -42,7 +42,7 @@ export class Project {
     }
 
     getTodoById(id) {
-        return this.todos.find(todo => todo.id === id);
+        return this.todos.get(id) || null;
     }
 
     toJSON() {
@@ -53,19 +53,19 @@ export class Project {
         }
     }
 
-   static fromJSON(json) {
-       const todosMap = new Map();
-       if (Array.isArray(json.todos)) {
-           json.todos.forEach(todoJson => {
-               const todo = Todo.fromJSON(todoJson);
-               todosMap.set(todo.id, todo);
-           });
-       }
-       return new Project({
-           name: json.name,
-           id: json.id,
-           todos: todosMap
-       });
-   }
+    static fromJSON(json) {
+        const todosMap = new Map();
+        if (Array.isArray(json.todos)) {
+            json.todos.forEach(todoJson => {
+                const todo = Todo.fromJSON(todoJson);
+                todosMap.set(todo.id, todo);
+            });
+        }
+        return new Project({
+            name: json.name,
+            id: json.id,
+            todos: todosMap
+        });
+    }
 
 }

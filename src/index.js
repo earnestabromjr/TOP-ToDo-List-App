@@ -47,6 +47,8 @@ function createProjectArray(storedProjects) {
     return projectsArray;
 }
 console.log(project.getTodos());
+project.getTodoById()// 
+console.log(project.getTodos()[0].getProperty("title"));
 
 // const content = document.querySelector("#content");
 // const card = document.createElement("div");

@@ -69,10 +69,11 @@ export class TodoUI {
             project.forEach(todo => {
                 const todoCard = document.createElement("div");
                 todoCard.classList.add("todo-card");
-                todoCard.textContent = todo.title;
+                todoCard.textContent = todo.id;
                 todoCard.addEventListener("click", () => {
                     // Handle todo click, e.g., show details or edit
-                    let todoItem = this.projectManager.getCurrentProject().getTodoById(todo.id);
+                    let todoItem = this.projectManager.getCurrentProject()
+                    console.log(todoItem);
                     if (todoItem) {
                         const todoDetails = document.createElement("div");
                         todoDetails.classList.add("todo-details");
