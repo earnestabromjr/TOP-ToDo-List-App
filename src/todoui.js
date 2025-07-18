@@ -16,6 +16,7 @@ export class TodoUI {
             projectSidebar: document.createElement("div"),
             projectManagerCard: document.getElementById("projects"),
             projectManagerTitle: document.createElement("h2"),
+            todoList: document.createElement("div"),
             todos: document.getElementById("todos"),
         };
     }
@@ -89,7 +90,7 @@ export class TodoUI {
                 todoList.appendChild(todoCard);
             });
 
-            this.uiElements.todos.appendChild(todoList);
+            this.uiElements.content.appendChild(todoList);
         } catch (error) {
             console.error("Error loading Todo page:", error);
             this.uiElements.content.textContent = "Failed to load todos. Please try again later.";

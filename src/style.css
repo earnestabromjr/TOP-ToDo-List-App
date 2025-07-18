@@ -48,11 +48,18 @@ nav button {
 #content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto auto;
     align-items: start;
     justify-content: space-evenly;
     padding: 10px;
     height: 100vh;
+}
+#content#projects {
+    grid-row: 2 / 3;
+}
+
+.todo-list {
+    grid-row: 3 / 4;
 }
 
 #todos {
@@ -69,6 +76,7 @@ nav button {
 #content h2 {
     border-bottom: 2px solid #bd537c;
     grid-column: 1 / -1;
+    grid-row: 1 / 2;
     font-family: "Adwaita Mono", monospace;
     font-size: 2rem;
     margin-top: 1rem;
