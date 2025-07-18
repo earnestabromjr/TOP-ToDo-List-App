@@ -59,7 +59,7 @@ export class TodoUI {
             this.uiElements.content.textContent = "Failed to load projects. Please try again later.";
         }
     }
-    loadTodoPage(project){
+    loadTodoPage(project) {
         try {
             this.uiElements.todos.textContent = "";
             const todoList = document.createElement("div");
@@ -71,7 +71,20 @@ export class TodoUI {
                 todoCard.textContent = todo.title;
                 todoCard.addEventListener("click", () => {
                     // Handle todo click, e.g., show details or edit
-                    console.log(`Todo clicked: ${todo.title}`);
+                    let todoItem = this.projectManager.getCurrentProject().getTodoById(todo.id);
+                    if (todoItem) {
+                        const todoDetails = document.createElement("div");
+                        todoDetails.classList.add("todo-details");
+                        todoDetails.innerHTML = `
+                            <h3>${todoItem.title}</h3>
+                            <p>Due Date: ${todoItem.dueDate ? todoItem.dueDate.toLocaleDateString() : "No due date"}</p>
+                            <p>Priority: ${todoItem.priority}</p>
+                            <p>Description: ${todoItem.description}</p>
+                            <p>Completed: ${todoItem.completed ? "Yes" : "No"}</p>
+                        `;
+                        this.uiElements.todo.textContent = "";
+                        this.uiElements.todo.appendChild(todoDetails);
+                    }
                 });
                 todoList.appendChild(todoCard);
             });
