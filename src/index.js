@@ -28,7 +28,7 @@ todoInstance.setProperty("completed", true);
 project.addTodo(
 	Todo.addTodo({
 		title: "Finish Project",
-		dueDate: Date.now(),
+		dueDate: Date.now() + 7 * 24 * 60 * 60 * 1000, // 1 week from now
 		priority: 2,
 		description: "Complete the project by the end of the week",
 		completed: false,
@@ -48,6 +48,7 @@ function createProjectArray(storedProjects) {
 	});
 	return projectsArray;
 }
+let projectsArray = createProjectArray(storedProjects);
 // console.log(project.getTodos());
 project.getTodoById(); //
 // console.log(project.getTodos()[0].getProperty("title"));
@@ -63,3 +64,4 @@ project.getTodoById(); //
 // console.log(ui.uiElements)
 todoUI.load_default_page(projectManager, storageManager);
 todoUI.loadTodoPage(project.getTodos());
+console.log(projectsArray[0].todos[0].dueDate);

@@ -1,5 +1,5 @@
 import { userDate } from "./user";
-import { add, format } from "date-fns";
+import * as dateFns from "date-fns";
 import { v4 as uuidv4 } from "uuid";
 
 export const PRIORITY = {
@@ -14,7 +14,7 @@ export class Todo {
 	constructor({
 		id = uuidv4(),
 		title = "",
-		dueDate = format(new Date(), "yyyy-MM-dd"),
+		dueDate = dateFns.format(new Date(), "yyyy-MM-dd"),
 		priority = PRIORITY.LOW,
 		description = "",
 		completed = false,
@@ -67,7 +67,7 @@ export class Todo {
 		return {
 			id: this.id,
 			title: this.title,
-			dueDate: format(this.dueDate, "yyyy-MM-dd"),
+			dueDate: dateFns.format(this.dueDate, "yyyy-MM-dd"),
 			priority: this.priority,
 			description: this.description,
 			completed: this.completed,
