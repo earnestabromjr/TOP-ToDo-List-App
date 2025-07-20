@@ -38,8 +38,13 @@ project.addTodo(
 projectManager.addProject(project);
 projectManager.saveToLocalStorage();
 
+let projectFromStorage = null;
 const storedProjects = storageManager.loadData("projects");
-// console.log(storedProjects[0].name);
+for (const projectData of storedProjects) {
+	projectFromStorage = Project.fromJSON(projectData);
+	projectManager.addProject(projectFromStorage);
+}
+console.log(projectFromStorage.getTodos());
 
 function createProjectArray(storedProjects) {
 	const projectsArray = [];
@@ -48,9 +53,6 @@ function createProjectArray(storedProjects) {
 	});
 	return projectsArray;
 }
-let projectsArray = createProjectArray(storedProjects);
-// console.log(project.getTodos());
-project.getTodoById(); //
 // console.log(project.getTodos()[0].getProperty("title"));
 
 // const content = document.querySelector("#content");
@@ -63,5 +65,8 @@ project.getTodoById(); //
 // content.append(card);
 // console.log(ui.uiElements)
 todoUI.load_default_page(projectManager, storageManager);
-todoUI.loadTodoPage(project.getTodos());
-console.log(projectsArray[0].todos[0].dueDate);
+todoUI.loadTodoPage(projectFromStorage.getTodos());
+
+// for (let todo of project.getTodos()) {
+// 	console.log(todo.dueDate.toString());
+// }

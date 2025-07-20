@@ -77,7 +77,6 @@ export class Todo {
 	static fromJSON(json) {
 		return new Todo({
 			...json,
-			dueDate: json.dueDate ? new Date(json.dueDate) : null,
 		});
 	}
 }
