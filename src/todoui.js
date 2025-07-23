@@ -139,6 +139,25 @@ export class TodoUI {
 				"Failed to load New Project page. Please try again later.";
 		}
 	}
+	uiEvents() {
+		try {
+			const projectCardBtn = document.querySelector("#project-card");
+			const storedProjects = this.storageManager.loadData("projects");
+			const projects = storedProjects.map((projectData) =>
+				Project.fromJSON(projectData),
+			);
+			const projectDisplay = document.createElement("div");
+			projectCardBtn.addEventListener("click", () => {
+				this.uiElements.content.textContent = "";
+				projects.forEach((project) => {
+					projectDisplay.textContent = project.name;
+					console.log(project.name);
+				});
+			});
+		} catch (error) {
+			console.error("Error loading UI events:", error);
+		}
+	}
 }
 
 const todoUI = new TodoUI();
