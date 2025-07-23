@@ -52,7 +52,7 @@ export class TodoUI {
 					projectCard.textContent = project.name;
 					projectCard.addEventListener("click", () => {
 						this.projectManager.setCurrentProject(project.id);
-						this.load_default_page(); // Reload to show the current project
+						// this.load_default_page(); // Reload to show the current project
 					});
 					this.uiElements.projectManagerCard.appendChild(projectCard);
 				});
@@ -104,7 +104,42 @@ export class TodoUI {
 				"Failed to load todos. Please try again later.";
 		}
 	}
+
+	loadNewProjectPage() {
+		try {
+			const newProjectForm = document.createElement("form");
+			newProjectForm.classList.add("new-project-form");
+			const projectNameInput = document.createElement("input");
+			projectNameInput.type = "text";
+			projectNameInput.placeholder = "Project Name";
+			projectNameInput.required = true;
+			const createProjectButton = document.createElement("button");
+			createProjectButton.type = "submit";
+			createProjectButton.textContent = "Create Project";
+			newProjectForm.appendChild(projectNameInput);
+			newProjectForm.appendChild(createProjectButton);
+			newProjectForm.addEventListener("submit", (event) => {
+				event.preventDefault();
+				const projectName = projectNameInput.value.trim();
+				if (projectName) {
+					const newProject = new Project({ name: projectName });
+					this.projectManager.addProject(newProject);
+					this.storageManager.saveData(
+						"projects",
+						this.projectManager.getAllProjects(),
+					);
+				}
+			});
+			this.load_default_page();
+			this.uiElements.todos.textContent = "";
+			this.uiElements.todos.appendChild(newProjectForm);
+		} catch (error) {
+			console.error("Error loading New Project page:", error);
+			this.uiElements.content.textContent =
+				"Failed to load New Project page. Please try again later.";
+		}
+	}
 }
 
-const todoUI = Object.freeze(new TodoUI());
+const todoUI = new TodoUI();
 export { todoUI };

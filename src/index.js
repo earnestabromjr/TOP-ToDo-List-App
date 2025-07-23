@@ -64,8 +64,14 @@ function createProjectArray(storedProjects) {
 
 // content.append(card);
 // console.log(ui.uiElements)
-todoUI.load_default_page(projectManager, storageManager);
-todoUI.loadTodoPage(projectFromStorage.getTodos());
+document.addEventListener("DOMContentLoaded", () => {
+	todoUI.load_default_page(projectManager, storageManager);
+	todoUI.loadTodoPage(projectFromStorage.getTodos());
+});
+
+// Event listener for buttons
+const projectBtn = document.getElementById("project");
+projectBtn.addEventListener("click", todoUI.loadNewProjectPage.bind(todoUI));
 
 // for (let todo of project.getTodos()) {
 // 	console.log(todo.dueDate.toString());
