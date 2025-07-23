@@ -1,6 +1,6 @@
+import { Project } from "./projects";
 import { ProjectManager } from "./projectManager";
 import { StorageManager } from "./storageManager";
-import { Project } from "./projects";
 
 let instance = null;
 
@@ -27,9 +27,6 @@ export class TodoUI {
 
 	load_default_page() {
 		try {
-			// const projectManager = new ProjectManager({
-			//     storageManager: new StorageManager()
-			// });
 			const storedProjects = this.storageManager.loadData("projects");
 			const projects = storedProjects.map((projectData) =>
 				Project.fromJSON(projectData),
@@ -130,9 +127,10 @@ export class TodoUI {
 					);
 				}
 			});
-			this.load_default_page();
-			this.uiElements.todos.textContent = "";
+			// this.load_default_page();
+			// this.uiElements.todos.textContent = "";
 			this.uiElements.todos.appendChild(newProjectForm);
+			this.uiEvents();
 		} catch (error) {
 			console.error("Error loading New Project page:", error);
 			this.uiElements.content.textContent =
@@ -141,19 +139,21 @@ export class TodoUI {
 	}
 	uiEvents() {
 		try {
-			const projectCardBtn = document.querySelector("#project-card");
+			const projectCardBtn = document.querySelector(".project-card");
 			const storedProjects = this.storageManager.loadData("projects");
 			const projects = storedProjects.map((projectData) =>
 				Project.fromJSON(projectData),
 			);
 			const projectDisplay = document.createElement("div");
 			projectCardBtn.addEventListener("click", () => {
-				this.uiElements.content.textContent = "";
+				// this.uiElements.content.textContent = "";
 				projects.forEach((project) => {
 					projectDisplay.textContent = project.name;
 					console.log(project.name);
 				});
 			});
+			// this.uiElements.content.textContent = "";
+			this.uiElements.content.appendChild(projectDisplay)
 		} catch (error) {
 			console.error("Error loading UI events:", error);
 		}
