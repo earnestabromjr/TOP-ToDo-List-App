@@ -1,19 +1,10 @@
 import { Project } from "./projects";
-import { ProjectManager } from "./projectManager";
-import { StorageManager } from "./storageManager";
 
-let instance = null;
 
-export class TodoUI {
-	constructor() {
-		if (instance) {
-			throw new Error("TodoUI instance already exists.");
-		}
-		instance = this;
-		this.projectManager = new ProjectManager({
-			storageManager: new StorageManager(),
-		});
-		this.storageManager = new StorageManager();
+export class TodoUI{
+	constructor(projectManager, storageManager) {
+		this.projectManager = projectManager;
+		this.storageManager = storageManager;
 		this.uiElements = {
 			body: document.querySelector("body"),
 			content: document.getElementById("content"),
@@ -145,6 +136,7 @@ export class TodoUI {
 				Project.fromJSON(projectData),
 			);
 			const projectDisplay = document.createElement("div");
+			projectDisplay.classList.add("project-display")
 			projectCardBtn.addEventListener("click", () => {
 				// this.uiElements.content.textContent = "";
 				projects.forEach((project) => {
@@ -159,6 +151,3 @@ export class TodoUI {
 		}
 	}
 }
-
-const todoUI = new TodoUI();
-export { todoUI };

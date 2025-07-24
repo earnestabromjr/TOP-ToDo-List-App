@@ -3,7 +3,7 @@ import { Todo } from "./todo.js";
 import { Project } from "./projects";
 import { ProjectManager } from "./projectManager";
 import { StorageManager } from "./storageManager";
-import { todoUI } from "./todoui";
+import { TodoUI } from "./todoui";
 
 const project = new Project({});
 project.addName("My First Project");
@@ -11,6 +11,7 @@ const storageManager = new StorageManager();
 const projectManager = new ProjectManager({
 	storageManager: storageManager,
 });
+const todoUI = new TodoUI(projectManager, storageManager)
 
 const todo = {
 	title: "Learn JavaScript",
