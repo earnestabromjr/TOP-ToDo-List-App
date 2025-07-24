@@ -6,19 +6,19 @@ import { StorageManager } from "./storageManager";
 import { TodoUI } from "./todoui";
 
 const project = new Project({});
-project.addName("My First Project");
+project.setName("My First Project");
 const storageManager = new StorageManager();
 const projectManager = new ProjectManager({
-	storageManager: storageManager,
+  storageManager: storageManager,
 });
-const todoUI = new TodoUI(projectManager, storageManager)
+const todoUI = new TodoUI(projectManager, storageManager);
 
 const todo = {
-	title: "Learn JavaScript",
-	dueDate: Date.now(),
-	priority: 1,
-	description: "Learn JavaScript by watching the tutorial",
-	completed: false,
+  title: "Learn JavaScript",
+  dueDate: Date.now(),
+  priority: 1,
+  description: "Learn JavaScript by watching the tutorial",
+  completed: false,
 };
 
 const todoInstance = new Todo(todo);
@@ -27,13 +27,13 @@ todoInstance.setProperty("completed", true);
 // console.log(project.getTodos());
 
 project.addTodo(
-	Todo.addTodo({
-		title: "Finish Project",
-		dueDate: Date.now() + 7 * 24 * 60 * 60 * 1000, // 1 week from now
-		priority: 2,
-		description: "Complete the project by the end of the week",
-		completed: false,
-	}),
+  Todo.addTodo({
+    title: "Finish Project",
+    dueDate: Date.now() + 7 * 24 * 60 * 60 * 1000, // 1 week from now
+    priority: 2,
+    description: "Complete the project by the end of the week",
+    completed: false,
+  })
 );
 
 projectManager.addProject(project);
@@ -42,17 +42,17 @@ projectManager.saveToLocalStorage();
 let projectFromStorage = null;
 const storedProjects = storageManager.loadData("projects");
 for (const projectData of storedProjects) {
-	projectFromStorage = Project.fromJSON(projectData);
-	projectManager.addProject(projectFromStorage);
+  projectFromStorage = Project.fromJSON(projectData);
+  projectManager.addProject(projectFromStorage);
 }
 console.log(projectFromStorage.getTodos());
 
 function createProjectArray(storedProjects) {
-	const projectsArray = [];
-	storedProjects.forEach((projectData) => {
-		projectsArray.push(projectData);
-	});
-	return projectsArray;
+  const projectsArray = [];
+  storedProjects.forEach((projectData) => {
+    projectsArray.push(projectData);
+  });
+  return projectsArray;
 }
 // console.log(project.getTodos()[0].getProperty("title"));
 
@@ -66,8 +66,8 @@ function createProjectArray(storedProjects) {
 // content.append(card);
 // console.log(ui.uiElements)
 document.addEventListener("DOMContentLoaded", () => {
-	todoUI.load_default_page(projectManager, storageManager);
-	todoUI.loadTodoPage(projectFromStorage.getTodos());
+  todoUI.load_default_page(projectManager, storageManager);
+  todoUI.loadTodoPage(projectFromStorage.getTodos());
 });
 
 // Event listener for buttons
