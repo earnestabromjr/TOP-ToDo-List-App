@@ -3,7 +3,7 @@ import { Todo } from "./todo.js";
 import { Project } from "./projects";
 import { ProjectManager } from "./projectManager";
 import { StorageManager } from "./storageManager";
-import { TodoUI } from "./todoui";
+import { TodoUI } from "./todoui.js";
 
 const project = new Project({});
 project.setName("My First Project");
@@ -66,13 +66,12 @@ function createProjectArray(storedProjects) {
 // content.append(card);
 // console.log(ui.uiElements)
 document.addEventListener("DOMContentLoaded", () => {
-  todoUI.load_default_page(projectManager, storageManager);
-  todoUI.loadTodoPage(projectFromStorage.getTodos());
+  todoUI.loadDefaultPage();
 });
 
 // Event listener for buttons
 const projectBtn = document.getElementById("project");
-projectBtn.addEventListener("click", todoUI.loadNewProjectPage.bind(todoUI));
+projectBtn.addEventListener("click", () => todoUI.renderNewProjectForm());
 
 // for (let todo of project.getTodos()) {
 // 	console.log(todo.dueDate.toString());
