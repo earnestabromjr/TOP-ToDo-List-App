@@ -1,4 +1,5 @@
 import "./style.css";
+import { AddButtons } from "./todoui.js";
 import { Todo } from "./todo.js";
 import { Project } from "./projects";
 import { ProjectManager } from "./projectManager";
@@ -43,7 +44,7 @@ let projectFromStorage = null;
 const storedProjects = storageManager.loadData("projects");
 for (const projectData of storedProjects) {
   projectFromStorage = Project.fromJSON(projectData);
-  projectManager.addProject(projectFromStorage);
+  // projectManager.addProject(projectFromStorage);
 }
 console.log(projectFromStorage.getTodos());
 
@@ -54,7 +55,7 @@ function createProjectArray(storedProjects) {
   });
   return projectsArray;
 }
-// console.log(project.getTodos()[0].getProperty("title"));
+console.log(project.getTodos()[1].getProperty("title"));
 
 // const content = document.querySelector("#content");
 // const card = document.createElement("div");
@@ -72,6 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
 // Event listener for buttons
 const projectBtn = document.getElementById("project");
 projectBtn.addEventListener("click", () => todoUI.renderNewProjectForm());
+
+const addTodoBtn = document.createElement("button");
+addTodoBtn.textContent = "Add Todo";
+addTodoBtn.addEventListener("click", () => {
+  const addButton = new AddButtons(projectManager, todoInstance);
+  addButton.renderAddButton();
+});
+document.body.appendChild(addTodoBtn);
 
 // for (let todo of project.getTodos()) {
 // 	console.log(todo.dueDate.toString());
