@@ -1,18 +1,18 @@
 export class StorageManager {
-    saveData(key, data) {
-        localStorage.setItem(key, JSON.stringify(data));
-    };
+  saveData (key, data) {
+    try {
+      localStorage.setItem(key, JSON.stringify(data))
+    } catch (error) {
+      console.error('Failed to save data to localStorage:', error)
+    }
+  }
 
-    loadData(key) {
-        if (key in localStorage) {
-            const data = localStorage.getItem(key);
-            if (data) {
-                try {
-                    return JSON.parse(data);
-                } catch (error) {
-                    console.error("Failed to parse project data from localStorage:", error);
-                }
-            }
-        }
-    };
+  loadData (key) {
+    try {
+      const data = localStorage.getItem(key)
+      return JSON.parse(data)
+    } catch (error) {
+      console.error('Failed to load data from localStorage:', error)
+    }
+  }
 }

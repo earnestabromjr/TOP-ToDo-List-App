@@ -1,4 +1,5 @@
 import { Project } from './projects'
+import { Todo } from './todo'
 
 export class TodoUI {
   constructor (projectManager, storageManager) {
@@ -12,6 +13,121 @@ export class TodoUI {
       projectManagerTitle: document.createElement('h2'),
       todoList: document.createElement('div'),
       todos: document.getElementById('todos')
+    }
+  }
+
+  // Validation methods
+  validateProjectInput (input) {
+    const errors = []
+
+    // Check if name exists and is not empty
+    if (!input.name || input.name.trim() === '') {
+      errors.push('Project name is required')
+    }
+
+    // Check name length
+    if (input.name && input.name.trim().length < 2) {
+      errors.push('Project name must be at least 2 characters long')
+    }
+
+    if (input.name && input.name.trim().length > 50) {
+      errors.push('Project name must be less than 50 characters')
+    }
+
+    // Check for duplicate project names
+    const existingProjects = this.projectManager.projects
+    const isDuplicate = existingProjects.some(
+      project => project.name.toLowerCase() === input.name.trim().toLowerCase()
+    )
+    if (isDuplicate) {
+      errors.push('A project with this name already exists')
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors
+    }
+  }
+
+  validateTodoInput (input) {
+    const errors = []
+
+    // Check if title exists and is not empty
+    if (!input.title || input.title.trim() === '') {
+      errors.push('Todo title is required')
+    }
+
+    // Check title length
+    if (input.title && input.title.trim().length < 3) {
+      errors.push('Todo title must be at least 3 characters long')
+    }
+
+    if (input.title && input.title.trim().length > 100) {
+      errors.push('Todo title must be less than 100 characters')
+    }
+
+    // Check description length
+    if (input.description && input.description.trim().length > 500) {
+      errors.push('Description must be less than 500 characters')
+    }
+
+    // Check due date
+    if (input.dueDate) {
+      const dueDate = new Date(input.dueDate)
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+
+      if (isNaN(dueDate.getTime())) {
+        errors.push('Invalid due date format')
+      } else if (dueDate < today) {
+        errors.push('Due date cannot be in the past')
+      }
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors
+    }
+  }
+
+  showValidationErrors (errors, container) {
+    // Clear previous errors
+    const existingErrors = container.querySelector('.validation-errors')
+    if (existingErrors) {
+      existingErrors.remove()
+    }
+
+    if (errors.length === 0) return
+
+    const errorContainer = document.createElement('div')
+    errorContainer.classList.add('validation-errors')
+    errorContainer.style.cssText = `
+      color: #dc3545;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    `
+
+    const errorList = document.createElement('ul')
+    errorList.style.cssText = 'margin: 0; padding-left: 20px;'
+
+    errors.forEach(error => {
+      const errorItem = document.createElement('li')
+      errorItem.textContent = error
+      errorList.appendChild(errorItem)
+    })
+
+    errorContainer.appendChild(errorList)
+    container.appendChild(errorContainer)
+  }
+
+  clearValidationErrors (container) {
+    const existingErrors = container.querySelector('.validation-errors')
+    if (existingErrors) {
+      existingErrors.remove()
     }
   }
 
@@ -70,24 +186,97 @@ export class TodoUI {
     this.uiElements.todos.innerHTML = ''
     const addTodoForm = document.createElement('form')
     addTodoForm.classList.add('add-todo-form')
+
+    const formContainer = document.createElement('div')
+    formContainer.style.cssText = 'max-width: 400px; margin: 0 auto;'
+
     const todoTitleInput = document.createElement('input')
     todoTitleInput.type = 'text'
-    todoTitleInput.placeholder = 'Todo Title'
+    todoTitleInput.placeholder = 'Todo Title *'
     todoTitleInput.required = true
+    todoTitleInput.style.cssText = 'width: 100%; margin: 5px 0; padding: 8px;'
+
     const todoDescriptionInput = document.createElement('input')
     todoDescriptionInput.type = 'text'
-    todoDescriptionInput.placeholder = 'Todo Description'
-    todoDescriptionInput.required = true
+    todoDescriptionInput.placeholder = 'Todo Description (optional)'
+    todoDescriptionInput.style.cssText =
+      'width: 100%; margin: 5px 0; padding: 8px;'
+
     const todoDueDateInput = document.createElement('input')
     todoDueDateInput.type = 'date'
-    todoDueDateInput.required = true
+    todoDueDateInput.style.cssText = 'width: 100%; margin: 5px 0; padding: 8px;'
+
     const addTodoButton = document.createElement('button')
     addTodoButton.type = 'submit'
     addTodoButton.textContent = 'Add Todo'
-    addTodoForm.appendChild(todoTitleInput)
-    addTodoForm.appendChild(todoDescriptionInput)
-    addTodoForm.appendChild(todoDueDateInput)
-    addTodoForm.appendChild(addTodoButton)
+    addTodoButton.style.cssText =
+      'width: 100%; margin: 5px 0; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;'
+
+    formContainer.appendChild(todoTitleInput)
+    formContainer.appendChild(todoDescriptionInput)
+    formContainer.appendChild(todoDueDateInput)
+    formContainer.appendChild(addTodoButton)
+    addTodoForm.appendChild(formContainer)
+
+    addTodoForm.addEventListener('submit', event => {
+      event.preventDefault()
+
+      // Clear previous validation errors
+      this.clearValidationErrors(formContainer)
+
+      const input = {
+        title: todoTitleInput.value.trim(),
+        description: todoDescriptionInput.value.trim(),
+        dueDate: todoDueDateInput.value
+      }
+
+      // Validate input
+      const validation = this.validateTodoInput(input)
+
+      if (!validation.isValid) {
+        this.showValidationErrors(validation.errors, formContainer)
+        return
+      }
+
+      const currentProject = this.projectManager.getCurrentProject()
+      if (!currentProject) {
+        this.showValidationErrors(
+          ['Please select a project first'],
+          formContainer
+        )
+        return
+      }
+
+      try {
+        const newTodo = new Todo({
+          title: input.title,
+          description: input.description,
+          dueDate: input.dueDate
+        })
+
+        currentProject.addTodo(newTodo)
+        this.projectManager.saveToLocalStorage()
+        this.renderTodos()
+
+        // Show success message
+        const successMessage = document.createElement('div')
+        successMessage.textContent = 'Todo created successfully!'
+        successMessage.style.cssText =
+          'color: #28a745; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; padding: 10px; margin: 10px 0;'
+        formContainer.appendChild(successMessage)
+
+        // Clear form
+        addTodoForm.reset()
+
+        // Remove success message after 3 seconds
+        setTimeout(() => {
+          successMessage.remove()
+        }, 3000)
+      } catch (error) {
+        this.showValidationErrors([error.message], formContainer)
+      }
+    })
+
     this.uiElements.todos.appendChild(addTodoForm)
   }
 
@@ -95,24 +284,69 @@ export class TodoUI {
     this.uiElements.todos.innerHTML = ''
     const newProjectForm = document.createElement('form')
     newProjectForm.classList.add('new-project-form')
+
+    const formContainer = document.createElement('div')
+    formContainer.style.cssText = 'max-width: 400px; margin: 0 auto;'
+
     const projectNameInput = document.createElement('input')
     projectNameInput.type = 'text'
-    projectNameInput.placeholder = 'Project Name'
+    projectNameInput.placeholder = 'Project Name *'
     projectNameInput.required = true
+    projectNameInput.style.cssText = 'width: 100%; margin: 5px 0; padding: 8px;'
+
     const createProjectButton = document.createElement('button')
     createProjectButton.type = 'submit'
     createProjectButton.textContent = 'Create Project'
-    newProjectForm.appendChild(projectNameInput)
-    newProjectForm.appendChild(createProjectButton)
+    createProjectButton.style.cssText =
+      'width: 100%; margin: 5px 0; padding: 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;'
+
+    formContainer.appendChild(projectNameInput)
+    formContainer.appendChild(createProjectButton)
+    newProjectForm.appendChild(formContainer)
+
     newProjectForm.addEventListener('submit', event => {
       event.preventDefault()
-      const projectName = projectNameInput.value.trim()
-      if (projectName) {
-        this.projectManager.addProject(new Project({ name: projectName }))
+
+      // Clear previous validation errors
+      this.clearValidationErrors(formContainer)
+
+      const input = {
+        name: projectNameInput.value.trim()
+      }
+
+      // Validate input
+      const validation = this.validateProjectInput(input)
+
+      if (!validation.isValid) {
+        this.showValidationErrors(validation.errors, formContainer)
+        return
+      }
+
+      try {
+        const newProject = new Project({ name: input.name })
+        this.projectManager.addProject(newProject)
         this.projectManager.saveToLocalStorage()
         this.renderProjects()
+
+        // Show success message
+        const successMessage = document.createElement('div')
+        successMessage.textContent = 'Project created successfully!'
+        successMessage.style.cssText =
+          'color: #28a745; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; padding: 10px; margin: 10px 0;'
+        formContainer.appendChild(successMessage)
+
+        // Clear form
+        newProjectForm.reset()
+
+        // Remove success message after 3 seconds
+        setTimeout(() => {
+          successMessage.remove()
+        }, 3000)
+      } catch (error) {
+        this.showValidationErrors([error.message], formContainer)
       }
     })
+
     this.uiElements.todos.appendChild(newProjectForm)
   }
 
@@ -126,7 +360,6 @@ export class TodoUI {
 export class AddButtons extends TodoUI {
   constructor (projectManager, storageManager, todo) {
     super(projectManager, storageManager)
-    this.projectManager = projectManager
     this.todo = todo
     this.uiElements.todos.innerHTML = ''
     this.renderAddTodoForm()
@@ -160,8 +393,8 @@ export class FormInputs extends TodoUI {
     return todo
   }
   processProjectInput (input) {
-    const project = this.project
-    project.name = input.name
+    const project = this.projectManager.getCurrentProject()
+    project.add = input.name
     return project
   }
 }

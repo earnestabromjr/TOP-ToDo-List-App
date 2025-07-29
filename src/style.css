@@ -24,14 +24,16 @@ img {
 }
 
 nav {
+	grid-row: 1 / 2;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
-	align-items: center;
+	align-items: start;
 	width: 100%;
 	height: 50px;
 	background-color: var(--bg-color);
 	color: white;
+	margin-bottom: 10px;
 }
 nav button {
 	background-color: #bd537c;
@@ -45,7 +47,16 @@ nav button {
 	font-size: 16px;
 }
 
+div#container {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	grid-template-columns: 1fr;
+	width: 100%;
+	height: 100vh;
+}
+
 #content {
+	grid-row: 2 / 3;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: auto auto auto;
@@ -54,11 +65,12 @@ nav button {
 	padding: 10px;
 	height: 100vh;
 }
-#content#projects {
-	grid-row: 2 / 3;
+div#projects {
+	grid-row: 3 / -1;
 }
 
 .project-card {
+	grid-row: 4 / 5;
 	background-color: #f0f0f0;
 	border: 1px solid #ccc;
 	border-radius: 5px;
@@ -69,7 +81,6 @@ nav button {
 }
 
 .todo-list {
-	grid-row: 3 / 4;
 }
 
 .todo-card {
@@ -82,7 +93,12 @@ nav button {
 	cursor: pointer;
 }
 
-#todos {
+#container#add-todo-btn {
+	grid-row: 3 / 4;
+}
+
+div#todos {
+	grid-row: 4 / 5;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -95,8 +111,7 @@ nav button {
 
 #content h2 {
 	border-bottom: 2px solid #bd537c;
-	grid-column: 1 / -1;
-	grid-row: 1 / 2;
+	grid-row: 2 / 3;
 	font-family: "Adwaita Mono", monospace;
 	font-size: 2rem;
 	margin-top: 1rem;
