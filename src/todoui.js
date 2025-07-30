@@ -372,7 +372,7 @@ export class AddUiInputs extends TodoUI {
 
 	renderAddTodoButton() {
 		const projectBtn = document.getElementById("project");
-		projectBtn.addEventListener("click", () => todoUI.renderNewProjectForm());
+		projectBtn.addEventListener("click", () => this.renderNewProjectForm());
 
 		const addTodoBtn = document.createElement("button");
 		addTodoBtn.id = "add-todo-btn";
@@ -386,7 +386,12 @@ export class AddUiInputs extends TodoUI {
 	renderProjectDropdown() {
 		const ProjectDropdown = document.createElement("select");
 		ProjectDropdown.id = "project-dropdown";
-		const projects = this.projectManager.projects;
+		const projects = this.projectManager.getAllProjects();
+		if (projects.length === 0) {
+			const option = document.createElement("option");
+			option.value = "";
+			option.textContent = "No projects available";
+		}
 		projects.forEach((project) => {
 			const option = document.createElement("option");
 			option.value = project.id;
