@@ -4,7 +4,7 @@ import { Todo } from "./todo.js";
 import { Project } from "./projects";
 import { ProjectManager } from "./projectManager";
 import { StorageManager } from "./storageManager";
-import { TodoUI } from "./todoui.js";
+import { TodoUI, AddUiInputs } from "./todoui.js";
 
 const project = new Project({});
 project.setName("My First Project");
@@ -13,6 +13,7 @@ const projectManager = new ProjectManager({
 	storageManager: storageManager,
 });
 const todoUI = new TodoUI(projectManager, storageManager);
+const ui = new AddUiInputs(projectManager, todoUI);
 
 const container = document.getElementById("container");
 
@@ -70,19 +71,20 @@ console.log(project.getTodos()[1].getProperty("title"));
 // console.log(ui.uiElements)
 document.addEventListener("DOMContentLoaded", () => {
 	todoUI.loadDefaultPage();
+	ui.renderAddTodoButton();
 });
 
 // Event listener for buttons
-const projectBtn = document.getElementById("project");
-projectBtn.addEventListener("click", () => todoUI.renderNewProjectForm());
-
-const addTodoBtn = document.createElement("button");
-addTodoBtn.id = "add-todo-btn";
-addTodoBtn.textContent = "Add Todo";
-addTodoBtn.addEventListener("click", () => {
-	todoUI.renderAddTodoForm();
-});
-container.appendChild(addTodoBtn);
+// const projectBtn = document.getElementById("project");
+// projectBtn.addEventListener("click", () => todoUI.renderNewProjectForm());
+//
+// const addTodoBtn = document.createElement("button");
+// addTodoBtn.id = "add-todo-btn";
+// addTodoBtn.textContent = "Add Todo";
+// addTodoBtn.addEventListener("click", () => {
+// 	todoUI.renderAddTodoForm();
+// });
+// container.appendChild(addTodoBtn);
 // for (let todo of project.getTodos()) {
 // 	console.log(todo.dueDate.toString());
 // }
