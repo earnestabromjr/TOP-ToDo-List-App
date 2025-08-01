@@ -7,13 +7,14 @@ body {
 
 #app {
 	display: grid;
-	grid-template-rows: auto 1fr auto;
+	grid-template-rows: auto 1fr 2fr;
 	grid-template-columns: 1fr 2fr;
 	flex-direction: column;
 	align-items: center;
 }
 
 header {
+	grid-row: 1 / 2;
 	grid-column: 1 / -1;
 	display: flex;
 	flex-direction: row;
@@ -27,7 +28,8 @@ img {
 }
 
 nav {
-	grid-row: 1 / 2;
+	grid-column: 1 / 2;
+	grid-row: 2 / 3;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -51,7 +53,7 @@ nav button {
 }
 
 div#container {
-	grid-row: 2 / 3;
+	grid-row: 4 / 5;
 	grid-column: 1 / 2;
 	display: grid;
 	grid-template-rows: auto 1fr auto;
@@ -73,7 +75,7 @@ div#container {
 }
 div#projects {
 	grid-column: 1 / -1;
-	grid-row: 2 / -1;
+	grid-row: 3 / 4;
 }
 
 .project-card {
@@ -85,6 +87,7 @@ div#projects {
 	margin: 10px;
 	width: 300px;
 	cursor: pointer;
+	border-bottom: 2px solid #bd537c;
 }
 
 .todo-list {
