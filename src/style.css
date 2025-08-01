@@ -50,7 +50,7 @@ nav button {
 div#container {
 	display: grid;
 	grid-template-rows: auto 1fr auto;
-	grid-template-columns: 1fr;
+	grid-template-columns: 1fr 2fr;
 	width: 100%;
 	height: 100vh;
 }
@@ -93,17 +93,20 @@ div#projects {
 	cursor: pointer;
 }
 
-#container#add-todo-btn {
+#add-todo-btn {
+	grid-column: 1 / 2;
 	grid-row: 3 / 4;
 }
 
 div#todos {
-	grid-row: 4 / 5;
+	grid-column: 2 / -1;
+	grid-row: 1 / 2;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: white;
+	width: 100vw;
 	border-radius: 10px;
 	padding: 10px;
 	height: 100vh;

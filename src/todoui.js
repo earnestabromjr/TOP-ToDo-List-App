@@ -14,6 +14,7 @@ export class TodoUI {
 			projectManagerTitle: document.createElement("h2"),
 			todoList: document.createElement("div"),
 			todos: document.getElementById("todos"),
+			addTodoButton: document.getElementById("add-todo-btn"),
 		};
 	}
 
@@ -167,7 +168,9 @@ export class TodoUI {
 			});
 			todoList.appendChild(todoCard);
 		});
-		this.uiElements.content.appendChild(todoList);
+		this.uiElements.projectManagerCard.appendChild(todoList);
+		// const addTodoButton = document.getElementById("add-todo-btn");
+		// addTodoButton.insertBefore(todoList, addTodoButton.firstChild);
 	}
 
 	renderTodoDetails(todo) {
@@ -281,6 +284,8 @@ export class TodoUI {
 			}
 		});
 
+		// const addTodoBtn = document.getElementById("add-todo-btn");
+		// addTodoBtn.insertBefore(addTodoForm, addTodoBtn.firstChild);
 		this.uiElements.todos.appendChild(addTodoForm);
 	}
 
@@ -380,7 +385,8 @@ export class AddUiInputs extends TodoUI {
 		addTodoBtn.addEventListener("click", () => {
 			this.renderAddTodoForm();
 		});
-		container.appendChild(addTodoBtn);
+		const navbar = document.querySelector("nav");
+		navbar.appendChild(addTodoBtn);
 	}
 
 	renderProjectDropdown() {
@@ -391,6 +397,7 @@ export class AddUiInputs extends TodoUI {
 			const option = document.createElement("option");
 			option.value = "";
 			option.textContent = "No projects available";
+			ProjectDropdown.appendChild(option);
 		}
 		projects.forEach((project) => {
 			const option = document.createElement("option");
