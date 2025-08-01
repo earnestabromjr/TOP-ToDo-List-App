@@ -361,6 +361,7 @@ export class TodoUI {
 	}
 
 	loadDefaultPage() {
+		this.uiElements.body.appendChild(this.uiElements.content);
 		this.uiElements.content.innerHTML = "";
 		this.renderProjects();
 		this.renderTodos();
