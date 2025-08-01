@@ -1,13 +1,16 @@
 body {
-	display: grid;
-	grid-template-rows: auto 1fr auto;
-	grid-template-columns: 1fr;
-	flex-direction: column;
-	align-items: center;
 	background: beige;
 	--bg-color: biege;
 	--my-font: "Droid Sans", sans-serif;
 	font-family: "Adwaita Sans", sans-serif;
+}
+
+#app {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	grid-template-columns: 1fr 2fr;
+	flex-direction: column;
+	align-items: center;
 }
 
 header {
@@ -58,7 +61,7 @@ div#container {
 }
 
 #content {
-	grid-column: 1 / -1;
+	grid-column: 1 / 2;
 	grid-row: 3 / 4;
 	display: grid;
 	grid-template-columns: 1fr;
@@ -103,16 +106,16 @@ div#projects {
 }
 
 div#todos {
-	grid-column: 2 / -1;
-	grid-row: 1 / -1;
+	grid-column: 2 / 3;
+	grid-row: 2 / 4;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: white;
-	width: 30%;
+	width: 100%;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 2px;
 	height: 100vh;
 }
 

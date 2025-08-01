@@ -6,6 +6,7 @@ export class TodoUI {
 		this.projectManager = projectManager;
 		this.storageManager = storageManager;
 		this.uiElements = {
+			app: document.getElementById("app"),
 			body: document.querySelector("body"),
 			content: document.getElementById("content"),
 			container: document.getElementById("container"),
@@ -361,10 +362,11 @@ export class TodoUI {
 	}
 
 	loadDefaultPage() {
-		this.uiElements.body.appendChild(this.uiElements.content);
+		this.uiElements.app.appendChild(this.uiElements.content);
 		this.uiElements.content.innerHTML = "";
 		this.renderProjects();
 		this.renderTodos();
+		this.uiElements.app.appendChild(this.uiElements.todos);
 	}
 }
 
