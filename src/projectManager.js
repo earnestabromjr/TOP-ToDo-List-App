@@ -2,71 +2,77 @@ import { v4 as uuidv4 } from "uuid";
 import { Project } from "./projects";
 
 export class ProjectManager {
-  constructor({ projects = [], currentProjectId = uuidv4(), storageManager }) {
-    this.projects = projects;
-    this.currentProjectId = currentProjectId;
-    this.storageManager = storageManager;
-  }
+	constructor({ projects = [], currentProjectId = null, storageManager }) {
+		this.projects = projects;
+		this.currentProjectId = currentProjectId;
+		this.storageManager = storageManager;
+		this.isLoaded = false; // Track if we've loaded from storage
+	}
 
-  addProject(project) {
-    if (!(project instanceof Project)) {
-      throw new Error(`Must provide a valid instance of Project`);
-    }
-    if (this.projects.some((p) => p.id === project.id)) {
-      throw new Error(`Project with id ${project.id} already exists`);
-    }
-    this.projects.push(project);
-    return this;
-  }
+	async loadFromStorage() {
+		if (this.isLoaded) return; // Don't load twice
 
-  removeProject(projectId) {
-    const index = this.projects.findIndex(p => p.id === projectId );
-    if (index === -1) {
-		throw new Error(`Project with id ${projectId} not found`);
-    }
-	this.projects.slice(index, 1);
-    return this;
-  }
+		try {
+			const projectsData = this.storageManager.loadData("projects");
+			const currentProjectId = this.storageManager.loadData("currentProjectId");
 
-  get getProject() {
-    return this.projects.find((project) => project.id === project);
-  }
+			if (projectsData && Array.isArray(projectsData)) {
+				this.projects = projectsData.map((json) => Project.fromJSON(json));
+				console.log(`Loaded ${this.projects.length} projects from storage`);
+			}
 
-  getAllProjects() {
-    if (this.projects.length === 0) {
-      return "No projects available";
-    }
-    let loadedProjects = this.storageManager.loadData("projects");
-    if (loadedProjects) {
-      this.projects = loadedProjects.map((json) => Project.fromJSON(json));
-    }
-    return loadedProjects || this.projects;
-  }
+			if (currentProjectId) {
+				this.currentProjectId = currentProjectId;
+			}
 
-  setCurrentProject(projectId) {
-    this.currentProjectId = projectId;
-  }
+			this.isLoaded = true;
+		} catch (error) {
+			console.error("Failed to load from storage:", error);
+		}
+	}
 
-  getCurrentProject() {
-    return this.projects.find(
-      (project) => project.id === this.currentProjectId
-    );
-  }
+	addProject(project) {
+		if (!(project instanceof Project)) {
+			throw new Error("Must provide a valid Project instance");
+		}
 
-  saveToLocalStorage() {
-    const projectsData = this.projects.map((project) => project.toJSON());
-    this.storageManager.saveData("projects", projectsData);
-    this.storageManager.saveData("currentProjectId", this.currentProjectId);
-  }
+		const exists = this.projects.some((p) => p.id === project.id);
+		if (exists) {
+			console.warn(`Project with id ${project.id} already exists`);
+			return this;
+		}
 
-  loadFromLocalStorage() {
-    const projectsData = this.storageManager.loadData("projects");
-    const currentProjectId = this.storageManager.loadData("currentProjectId");
-    if (projectsData) {
-      this.projects = projectsData.map((json) => Project.fromJSON(json));
-    }
-    if (currentProjectId) {
-      this.currentProjectId = currentProjectId;
-    }
-  }
+		this.projects.push(project);
+		this.saveToStorage(); // Auto-save after changes
+		return this;
+	}
+
+	setCurrentProject(projectId) {
+		this.currentProjectId = projectId;
+	}
+
+	getCurrentProject() {
+		return this.projects.find(
+			(project) => project.id === this.currentProjectId,
+		);
+	}
+
+	async saveToStorage() {
+		try {
+			const projectsData = this.projects.map((project) => project.toJSON());
+			this.storageManager.saveData("projects", projectsData);
+
+			if (this.currentProjectId) {
+				this.storageManager.saveData("currentProjectId", this.currentProjectId);
+			}
+
+			console.log(`Saved ${this.projects.length} projects to storage`);
+		} catch (error) {
+			console.error("Failed to save to storage:", error);
+		}
+	}
+
+	getAllProjects() {
+		return [...this.projects]; // Return copy, don't load from storage here
+	}
 }

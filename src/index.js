@@ -6,85 +6,52 @@ import { ProjectManager } from "./projectManager";
 import { StorageManager } from "./storageManager";
 import { TodoUI, AddUiInputs } from "./todoui.js";
 
-const project = new Project({});
-project.setName("My First Project");
-const storageManager = new StorageManager();
-const projectManager = new ProjectManager({
-	storageManager: storageManager,
-});
-const todoUI = new TodoUI(projectManager, storageManager);
-const ui = new AddUiInputs(projectManager, todoUI);
+document.addEventListener("DOMContentLoaded", async () => {
+	const storageManager = new StorageManager();
+	const projectManager = new ProjectManager({ storageManager });
+	const todoUI = new TodoUI(projectManager, storageManager);
+	const ui = new AddUiInputs(projectManager, todoUI);
 
-const container = document.getElementById("container");
+	// FIRST: Load existing data from storage
+	await projectManager.loadFromStorage();
 
-const todo = {
-	title: "Learn JavaScript",
-	dueDate: Date.now(),
-	priority: 1,
-	description: "Learn JavaScript by watching the tutorial",
-	completed: false,
-};
+	// THEN: Check if we need to create default data
+	if (projectManager.getAllProjects().length === 0) {
+		console.log("No projects found, creating default project");
 
-const todoInstance = new Todo(todo);
-project.addTodo(todoInstance);
-todoInstance.setProperty("completed", true);
-// console.log(project.getTodos());
+		const defaultProject = new Project({});
+		defaultProject.addName("My First Project");
 
-project.addTodo(
-	Todo.addTodo({
-		title: "Finish Project",
-		dueDate: Date.now() + 7 * 24 * 60 * 60 * 1000, // 1 week from now
-		priority: 2,
-		description: "Complete the project by the end of the week",
-		completed: false,
-	}),
-);
+		// Add some sample todos
+		const todo1 = new Todo({
+			title: "Learn JavaScript",
+			dueDate: new Date(),
+			priority: 1,
+			description: "Learn JavaScript by watching tutorials",
+			completed: false,
+		});
 
-projectManager.addProject(project);
-projectManager.saveToLocalStorage();
+		const todo2 = new Todo({
+			title: "Finish Project",
+			dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+			priority: 2,
+			description: "Complete the project by the end of the week",
+			completed: false,
+		});
 
-let projectFromStorage = null;
-const storedProjects = storageManager.loadData("projects");
-for (const projectData of storedProjects) {
-	projectFromStorage = Project.fromJSON(projectData);
-	// projectManager.addProject(projectFromStorage);
-}
-console.log(projectFromStorage.getTodos());
+		defaultProject.addTodo(todo1);
+		defaultProject.addTodo(todo2);
 
-function createProjectArray(storedProjects) {
-	const projectsArray = [];
-	storedProjects.forEach((projectData) => {
-		projectsArray.push(projectData);
-	});
-	return projectsArray;
-}
-console.log(project.getTodos()[1].getProperty("title"));
+		projectManager.addProject(defaultProject);
+		projectManager.setCurrentProject(defaultProject.id);
+	}
 
-// const content = document.querySelector("#content");
-// const card = document.createElement("div");
-
-// card.textContent = todoInstance.getProperty("title");
-
-// card.classList.add("card");
-
-// content.append(card);
-// console.log(ui.uiElements)
-document.addEventListener("DOMContentLoaded", () => {
+	// FINALLY: Initialize UI with loaded/created data
 	todoUI.loadDefaultPage();
 	ui.renderAddTodoButton();
-});
 
-// Event listener for buttons
-// const projectBtn = document.getElementById("project");
-// projectBtn.addEventListener("click", () => todoUI.renderNewProjectForm());
-//
-// const addTodoBtn = document.createElement("button");
-// addTodoBtn.id = "add-todo-btn";
-// addTodoBtn.textContent = "Add Todo";
-// addTodoBtn.addEventListener("click", () => {
-// 	todoUI.renderAddTodoForm();
-// });
-// container.appendChild(addTodoBtn);
-// for (let todo of project.getTodos()) {
-// 	console.log(todo.dueDate.toString());
-// }
+	const currentProject = projectManager.getCurrentProject();
+	if (currentProject) {
+		todoUI.renderTodos(currentProject.getTodos());
+	}
+});

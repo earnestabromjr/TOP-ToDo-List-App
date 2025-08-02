@@ -154,7 +154,7 @@ export class TodoUI {
 	}
 
 	renderTodos() {
-		this.uiElements.todos.innerHTML = "";
+		this.uiElements.container.innerHTML = "";
 		const currentProject = this.projectManager.getCurrentProject();
 		if (!currentProject) return;
 		const todos = currentProject.getTodos();
@@ -169,7 +169,7 @@ export class TodoUI {
 			});
 			todoList.appendChild(todoCard);
 		});
-		this.uiElements.projectManagerCard.appendChild(todoList);
+		this.uiElements.container.appendChild(todoList);
 		// const addTodoButton = document.getElementById("add-todo-btn");
 		// addTodoButton.insertBefore(todoList, addTodoButton.firstChild);
 	}
@@ -203,6 +203,7 @@ export class TodoUI {
 		todoTitleInput.style.cssText = "width: 100%; margin: 5px 0; padding: 8px;";
 
 		const todoDescriptionInput = document.createElement("input");
+		todoDescriptionInput.id = "todo-description-input";
 		todoDescriptionInput.type = "text";
 		todoDescriptionInput.placeholder = "Todo Description (optional)";
 		todoDescriptionInput.style.cssText =
@@ -263,7 +264,7 @@ export class TodoUI {
 				});
 
 				currentProject.addTodo(newTodo);
-				this.projectManager.saveToLocalStorage();
+				this.projectManager.saveToStorage();
 				this.renderTodos();
 
 				// Show success message
@@ -306,6 +307,7 @@ export class TodoUI {
 			"width: 100%; margin: 5px 0; padding: 8px;";
 
 		const createProjectButton = document.createElement("button");
+		createProjectButton.id = "create-project-btn";
 		createProjectButton.type = "submit";
 		createProjectButton.textContent = "Create Project";
 		createProjectButton.style.cssText =
@@ -336,7 +338,7 @@ export class TodoUI {
 			try {
 				const newProject = new Project({ name: input.name });
 				this.projectManager.addProject(newProject);
-				this.projectManager.saveToLocalStorage();
+				this.projectManager.saveToStorage();
 				this.renderProjects();
 
 				// Show success message

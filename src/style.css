@@ -31,7 +31,7 @@ nav {
 	grid-column: 1 / 2;
 	grid-row: 2 / 3;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: space-between;
 	align-items: start;
 	width: 100%;
