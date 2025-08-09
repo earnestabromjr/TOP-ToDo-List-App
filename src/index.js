@@ -55,3 +55,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 		todoUI.renderTodos(currentProject.getTodos());
 	}
 });
+const displayTodos = document.getElementById("todo");
+displayTodos.addEventListener("click", (e) => {
+	const storageManager = new StorageManager();
+	const projectManager = new ProjectManager({ storageManager });
+	const todoUI = new TodoUI(projectManager, storageManager);
+	if (e.target.classList.contains("todo-item")) {
+		todoUI.renderTodos();
+	}
+});

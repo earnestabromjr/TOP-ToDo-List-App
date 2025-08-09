@@ -184,7 +184,20 @@ export class TodoUI {
       <p>Priority: ${todo.priority}</p>
       <p>Description: ${todo.description}</p>
       <p>Completed: ${todo.completed ? "Yes" : "No"}</p>
+			<input type="radio" name="completed" value="true" ${
+				todo.completed ? "checked" : ""
+			}> Yes
+			<input type="radio" name="completed" value="false" ${
+				todo.completed ? "" : "checked"
+			}> No
     `;
+		const deleteButton = document.createElement("button");
+		deleteButton.textContent = "Delete Todo";
+		deleteButton.addEventListener("click", () => {
+			this.projectManager.getCurrentProject().removeTodo(todo.id);
+			this.renderTodos();
+		});
+		todoDetails.appendChild(deleteButton);
 		this.uiElements.todos.appendChild(todoDetails);
 	}
 
@@ -199,6 +212,7 @@ export class TodoUI {
 		const todoTitleInput = document.createElement("input");
 		todoTitleInput.type = "text";
 		todoTitleInput.placeholder = "Todo Title *";
+		todoTitleInput.id = "todo-title-input";
 		todoTitleInput.required = true;
 		todoTitleInput.style.cssText = "width: 100%; margin: 5px 0; padding: 8px;";
 
@@ -211,6 +225,7 @@ export class TodoUI {
 
 		const todoDueDateInput = document.createElement("input");
 		todoDueDateInput.type = "date";
+		todoDueDateInput.id = "todo-due-date-input";
 		todoDueDateInput.style.cssText =
 			"width: 100%; margin: 5px 0; padding: 8px;";
 
@@ -410,38 +425,5 @@ export class AddUiInputs extends TodoUI {
 			option.textContent = project.name;
 			ProjectDropdown.appendChild(option);
 		});
-	}
-}
-
-export class FormInputs extends TodoUI {
-	constructor(projectManager, storageManager, todo) {
-		super(projectManager, storageManager);
-		this.projectManager = projectManager;
-		this.todo = todo;
-		this.uiElements.todos.innerHTML = "";
-		this.renderAddTodoForm();
-	}
-	renderAddTodoButton() {
-		const addButton = document.createElement("button");
-		addButton.classList.add("add-button");
-		this.uiElements.todos.appendChild(addButton);
-		addButton.textContent = "Add";
-		addButton.addEventListener("click", () => {
-			this.renderAddTodoForm();
-		});
-		return addButton;
-	}
-
-	processTodoInput(input) {
-		const todo = this.todo;
-		todo.title = input.title;
-		todo.description = input.description;
-		todo.dueDate = input.dueDate;
-		return todo;
-	}
-	processProjectInput(input) {
-		const project = this.projectManager.getCurrentProject();
-		project.add = input.name;
-		return project;
 	}
 }

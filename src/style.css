@@ -3,13 +3,14 @@ body {
 	--bg-color: biege;
 	--my-font: "Droid Sans", sans-serif;
 	font-family: "Adwaita Sans", sans-serif;
+	box-sizing: border-box;
+	margin: 0;
 }
 
 #app {
 	display: grid;
-	grid-template-rows: auto 1fr 2fr;
-	grid-template-columns: 1fr 2fr;
-	flex-direction: column;
+	grid-template-rows: auto auto auto;
+	grid-template-columns: auto;
 	align-items: center;
 }
 
@@ -67,39 +68,40 @@ div#container {
 	grid-row: 3 / 4;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: auto auto;
+	grid-template-rows: repeat(2, 1fr);
 	align-items: start;
 	justify-content: space-evenly;
 	padding: 10px;
-	height: 100vh;
+	width: 20rem;
+	height: auto;
 }
 div#projects {
 	grid-column: 1 / -1;
-	grid-row: 3 / 4;
+	grid-row: 2 / 3;
 }
 
 .project-card {
 	grid-row: 2 / 3;
 	background-color: #f0f0f0;
-	border: 1px solid #ccc;
+	border: 1px solid #28a745;
 	border-radius: 5px;
 	padding: 10px;
 	margin: 10px;
 	width: 300px;
 	cursor: pointer;
-	border-bottom: 2px solid #bd537c;
+	border-bottom: 2px solid #28a745;
 }
 
 .todo-list {
 }
 
 .todo-card {
-	background-color: #f0f0f0;
-	border: 1px solid #ccc;
+	background-color: white;
+	border: 1px solid #007bff;
 	border-radius: 5px;
-	padding: 10px;
+	padding: 5px;
 	margin: 10px;
-	width: 300px;
+	width: auto;
 	cursor: pointer;
 }
 
@@ -108,15 +110,20 @@ div#projects {
 	grid-row: 3 / 4;
 }
 
+form.add-todo-form > div {
+	justify-self: start;
+}
+
 div#todos {
 	grid-column: 2 / 3;
 	grid-row: 2 / 4;
+	justify-self: start;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: white;
-	width: 100%;
+	width: 30rem;
 	border-radius: 10px;
 	padding: 2px;
 	height: 100vh;
