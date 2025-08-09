@@ -138,7 +138,7 @@ div#todos {
     width: 30rem;
     border-radius: 10px;
     padding: 2px;
-    height: clamp(200px, 30vh, 500px);
+    height: clamp(10rem, 50vh, 500px);
 }
 
 #content h2 {
