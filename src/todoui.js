@@ -270,6 +270,7 @@ export class TodoUI {
         title: todoTitleInput.value.trim(),
         description: todoDescriptionInput.value.trim(),
         dueDate: todoDueDateInput.value,
+        priority: todoPriorityInput.value,
       };
 
       // Validate input
@@ -294,6 +295,7 @@ export class TodoUI {
           title: input.title,
           description: input.description,
           dueDate: input.dueDate,
+          priority: input.priority,
         });
 
         currentProject.addTodo(newTodo);
