@@ -236,6 +236,16 @@ export class TodoUI {
     todoDueDateInput.style.cssText =
       "width: 100%; margin: 5px 0; padding: 8px;";
 
+    const todoPriorityInput = document.createElement("select");
+    todoPriorityInput.id = "todo-priority-input";
+    const priorities = ["Low", "Medium", "High"];
+    priorities.forEach((priority) => {
+      const option = document.createElement("option");
+      option.value = priority.toLowerCase();
+      option.textContent = priority.charAt(0).toUpperCase() + priority.slice(1);
+      todoPriorityInput.appendChild(option);
+    });
+
     const addTodoButton = document.createElement("button");
     addTodoButton.id = "add-todo-form-btn";
     addTodoButton.type = "submit";
@@ -246,6 +256,7 @@ export class TodoUI {
     formContainer.appendChild(todoTitleInput);
     formContainer.appendChild(todoDescriptionInput);
     formContainer.appendChild(todoDueDateInput);
+    formContainer.appendChild(todoPriorityInput);
     formContainer.appendChild(addTodoButton);
     addTodoForm.appendChild(formContainer);
 

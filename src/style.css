@@ -13,6 +13,7 @@ body {
     grid-template-rows: auto auto auto;
     grid-template-columns: auto;
     align-items: center;
+    width: calc(100% - 20px);
 }
 
 header {
