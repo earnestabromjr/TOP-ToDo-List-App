@@ -1,231 +1,310 @@
 :root {
-	box-sizing: border-box;
-	--base: #1e1e2e;
-	--mantle: #181825;
-	--crust: #11111b;
-	--surface0: #313244;
-	--surface1: #45475a;
-	--surface2: #585b70;
-	--overlay0: #6c7086;
-	--text: #cdd6f4;
-	--subtext0: #a6adc8;
-	--blue: #89b4fa;
-	--green: #a6e3a1;
-	--red: #f38ba8;
-	--yellow: #f9e2af;
-	--peach: #fab387;
-	--mauve: #cba6f7;
-	--pink: #f5c2e7;
-	--teal: #94e2d5;
-	--my-font: "Droid Sans", sans-serif;
+  box-sizing: border-box;
+  --base: #1e1e2e;
+  --mantle: #181825;
+  --crust: #11111b;
+  --surface0: #313244;
+  --surface1: #45475a;
+  --surface2: #585b70;
+  --overlay0: #6c7086;
+  --text: #cdd6f4;
+  --subtext0: #a6adc8;
+  --blue: #89b4fa;
+  --green: #a6e3a1;
+  --red: #f38ba8;
+  --yellow: #f9e2af;
+  --peach: #fab387;
+  --mauve: #cba6f7;
+  --pink: #f5c2e7;
+  --teal: #94e2d5;
+  --my-font: "Droid Sans", sans-serif;
 }
 body {
-	background: var(--base);
-	font-family: var(--my-font, "Adwaita Sans", sans-serif);
-	box-sizing: border-box;
-	margin: 0;
-	color: var(--text);
+  background: var(--base);
+  font-family: var(--my-font, "Adwaita Sans", sans-serif);
+  box-sizing: border-box;
+  margin: 0;
+  color: var(--text);
 }
 
 #app {
-	display: grid;
-	grid-template-rows: auto auto auto;
-	grid-template-columns: auto;
-	align-items: center;
-	width: calc(100% - 20px);
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto;
+  align-items: center;
+  width: calc(100% - 20px);
 }
 
 header {
-	grid-row: 1 / 2;
-	grid-column: 1 / -1;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-content: flex-start;
+  grid-row: 1 / 2;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-start;
 }
 
 img {
-	width: 300px;
-	height: 200px;
+  width: 300px;
+  height: 200px;
 }
 
 nav {
-	grid-column: 1 / 2;
-	grid-row: 2 / 3;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: start;
-	width: 100%;
-	height: 50px;
-	background-color: var(--surface0);
-	color: var(--text);
-	margin-bottom: 10px;
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 50px;
+  padding: 5px 10px;
+  background-color: var(--surface0);
+  color: var(--text);
+  margin: 0 auto 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
 }
 nav button {
-	background-color: var(--surface0);
-	color: var(--subtext0);
-	border: none;
-	padding: 10px 20px;
-	margin: 0 10px;
-	cursor: pointer;
-	border-radius: 5px;
-	font-size: 16px;
+  background-color: var(--surface0);
+  color: var(--subtext0);
+  border: none;
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1.2em;
+  flex: 0 1 auto;
+  white-space: nowrap;
 }
 
 .blueButton {
-	background-color: var(--blue);
-	color: var(--crust);
-	border: none;
-	padding: 10px 20px;
-	margin: 0 10px;
-	cursor: pointer;
-	border-radius: 5px;
-	font-size: 16px;
+  background-color: var(--blue);
+  color: var(--crust);
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 div#container {
-	grid-row: 4 / 5;
-	grid-column: 1 / 2;
-	display: grid;
-	grid-template-rows: auto 1fr auto;
-	grid-template-columns: 1fr 2fr;
-	width: 100%;
-	height: 30vh;
+  grid-row: 4 / 5;
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  width: 100%;
+  height: auto;
+  min-height: 30vh;
 }
 
 #content {
-	grid-column: 1 / 2;
-	grid-row: 3 / 4;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: repeat(2, 1fr);
-	align-items: start;
-	justify-content: space-evenly;
-	padding: 10px;
-	width: 20rem;
-	height: auto;
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  align-items: start;
+  justify-content: space-evenly;
+  padding: 10px;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  box-sizing: border-box;
 }
 div#projects {
-	grid-column: 1 / -1;
-	grid-row: 2 / 3;
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
 }
 
 .project-card {
-	grid-row: 2 / 3;
-	background-color: var(--surface0);
-	border: 1px solid var(--green);
-	border-radius: 5px;
-	padding: 10px;
-	margin: 10px;
-	width: 300px;
-	cursor: pointer;
-	border-bottom: 2px solid var(--green);
+  grid-row: 2 / 3;
+  background-color: var(--surface0);
+  border: 1px solid var(--green);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: auto;
+  max-width: 300px;
+  cursor: pointer;
+  border-bottom: 2px solid var(--green);
 }
 
 .todo-card {
-	background-color: var(--surface0);
-	border: 1px solid var(--blue);
-	border-radius: 5px;
-	padding: 5px;
-	margin: 10px;
-	width: auto;
-	cursor: pointer;
+  background-color: var(--surface0);
+  border: 1px solid var(--blue);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px;
+  width: auto;
+  cursor: pointer;
 }
 
 #add-todo-btn {
-	grid-column: 1 / 2;
-	grid-row: 3 / 4;
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
 }
 
 form.add-todo-form > div {
-	margin: 1rem 0;
-	padding: 1rem 0;
-	justify-self: start;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  justify-self: start;
 }
 form {
-	margin: 1rem;
-	padding: 1rem;
+  margin: 1rem;
+  padding: 1rem;
 }
 
-input, select, textarea {
-	background: var(--surface0);
-	color: var(--text);
-	border: 1px solid var(--surface1);
-	border-radius: 4px;
-	padding: 8px;
+input,
+select,
+textarea {
+  background: var(--surface0);
+  color: var(--text);
+  border: 1px solid var(--surface1);
+  border-radius: 4px;
+  padding: 8px;
 }
 
 .todo-details {
-	color: var(--text);
+  color: var(--text);
 }
 
 .todo-details h3 {
-	color: var(--blue);
+  color: var(--blue);
 }
 
 .todo-list {
-	color: var(--text);
+  color: var(--text);
 }
 
 .validation-errors {
-	color: var(--red);
+  color: var(--red);
 }
 
 .blueButton:hover {
-	opacity: 0.9;
+  opacity: 0.9;
 }
 
 .project-card:hover {
-	transform: scale(1.02);
-	transition: transform 0.2s;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
+  transition: transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .todo-card:hover {
-	transform: scale(1.02);
-	transition: transform 0.2s;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
+  transition: transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 input[type="radio"] {
-	accent-color: var(--blue);
+  accent-color: var(--blue);
 }
 
 div#todos {
-	grid-column: 2 / 3;
-	grid-row: 3 / 4;
-	justify-self: start;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background-color: var(--mantle);
-	width: 30rem;
-	border-radius: 10px;
-	padding: 2px;
-	height: clamp(10rem, 50vh, 500px);
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  justify-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mantle);
+  width: 100%;
+  min-width: 0;
+  max-width: 30rem;
+  border-radius: 10px;
+  padding: 2px;
+  margin-top: 4rem;
+  height: clamp(10rem, 50vh, 500px);
+  box-sizing: border-box;
 }
 
 #content h2 {
-	border-bottom: 2px solid var(--blue);
-	grid-column: 1 / -1;
-	grid-row: 1 / 2;
-	font-family: "Adwaita Mono", monospace;
-	font-size: 2rem;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+  border-bottom: 2px solid var(--blue);
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+  font-family: "Adwaita Mono", monospace;
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 #menu {
-	display: flex;
-	flex-direction: row;
-	background-color: var(--surface0);
+  display: flex;
+  flex-direction: row;
+  background-color: var(--surface0);
 }
 
 /* Animations */
 div#projects {
-	transform: scale(1.02);
-	transition: transform 0.2s;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
+  transition: transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  #app {
+    width: 100%;
+  }
+
+  nav {
+    justify-content: center;
+    gap: 3px;
+    padding: 5px;
+  }
+
+  nav button {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
+  div#container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  #content {
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+
+  .project-card {
+    max-width: 100%;
+  }
+
+  div#todos {
+    grid-column: 1 / -1;
+    max-width: 100%;
+    height: auto;
+    min-height: 15rem;
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+  }
+
+  #content h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  nav button {
+    font-size: 11px;
+    padding: 5px 6px;
+  }
+
+  #content h2 {
+    font-size: 1.1rem;
+  }
+
+  form {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
 }
