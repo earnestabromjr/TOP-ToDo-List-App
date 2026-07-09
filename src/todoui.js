@@ -106,9 +106,9 @@ export class TodoUI {
     const errorContainer = document.createElement("div");
     errorContainer.classList.add("validation-errors");
     errorContainer.style.cssText = `
-      color: #dc3545;
-      background-color: #f8d7da;
-      border: 1px solid #f5c6cb;
+      color: #f38ba8;
+      background-color: #2a1e24;
+      border: 1px solid #453041;
       border-radius: 4px;
       padding: 10px;
       margin: 10px 0;
@@ -221,23 +221,24 @@ export class TodoUI {
     todoTitleInput.placeholder = "Todo Title *";
     todoTitleInput.id = "todo-title-input";
     todoTitleInput.required = true;
-    todoTitleInput.style.cssText = "width: 100%; margin: 5px 0; padding: 8px;";
+    todoTitleInput.style.cssText = "width: 100%; margin: 5px 0; padding: 8px; background: #313244; color: #cdd6f4; border: 1px solid #45475a; border-radius: 4px;";
 
     const todoDescriptionInput = document.createElement("input");
     todoDescriptionInput.id = "todo-description-input";
     todoDescriptionInput.type = "text";
     todoDescriptionInput.placeholder = "Todo Description (optional)";
     todoDescriptionInput.style.cssText =
-      "width: 100%; margin: 5px 0; padding: 8px;";
+      "width: 100%; margin: 5px 0; padding: 8px; background: #313244; color: #cdd6f4; border: 1px solid #45475a; border-radius: 4px;";
 
     const todoDueDateInput = document.createElement("input");
     todoDueDateInput.type = "date";
     todoDueDateInput.id = "todo-due-date-input";
     todoDueDateInput.style.cssText =
-      "width: 100%; margin: 5px 0; padding: 8px;";
+      "width: 100%; margin: 5px 0; padding: 8px; background: #313244; color: #cdd6f4; border: 1px solid #45475a; border-radius: 4px;";
 
     const todoPriorityInput = document.createElement("select");
     todoPriorityInput.id = "todo-priority-input";
+    todoPriorityInput.style.cssText = "background: #313244; color: #cdd6f4; border: 1px solid #45475a; border-radius: 4px; padding: 8px; width: 100%; margin: 5px 0;";
     const priorities = ["Low", "Medium", "High"];
     priorities.forEach((priority) => {
       const option = document.createElement("option");
@@ -251,7 +252,7 @@ export class TodoUI {
     addTodoButton.type = "submit";
     addTodoButton.textContent = "Add Todo";
     addTodoButton.style.cssText =
-      "width: 100%; margin: 5px 0; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;";
+      "width: 100%; margin: 5px 0; padding: 10px; background: #89b4fa; color: #11111b; border: none; border-radius: 4px; cursor: pointer;";
 
     formContainer.appendChild(todoTitleInput);
     formContainer.appendChild(todoDescriptionInput);
@@ -306,7 +307,7 @@ export class TodoUI {
         const successMessage = document.createElement("div");
         successMessage.textContent = "Todo created successfully!";
         successMessage.style.cssText =
-          "color: #28a745; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; padding: 10px; margin: 10px 0;";
+          "color: #a6e3a1; background-color: #1e2a1e; border: 1px solid #2d3f2d; border-radius: 4px; padding: 10px; margin: 10px 0;";
         formContainer.appendChild(successMessage);
 
         // Clear form
@@ -339,14 +340,14 @@ export class TodoUI {
     projectNameInput.placeholder = "Project Name *";
     projectNameInput.required = true;
     projectNameInput.style.cssText =
-      "width: 100%; margin: 5px 0; padding: 8px;";
+      "width: 100%; margin: 5px 0; padding: 8px; background: #313244; color: #cdd6f4; border: 1px solid #45475a; border-radius: 4px;";
 
     const createProjectButton = document.createElement("button");
     createProjectButton.id = "create-project-btn";
     createProjectButton.type = "submit";
     createProjectButton.textContent = "Create Project";
     createProjectButton.style.cssText =
-      "width: 100%; margin: 5px 0; padding: 10px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;";
+      "width: 100%; margin: 5px 0; padding: 10px; background: #a6e3a1; color: #11111b; border: none; border-radius: 4px; cursor: pointer;";
 
     formContainer.appendChild(projectNameInput);
     formContainer.appendChild(createProjectButton);
@@ -380,7 +381,7 @@ export class TodoUI {
         const successMessage = document.createElement("div");
         successMessage.textContent = "Project created successfully!";
         successMessage.style.cssText =
-          "color: #28a745; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; padding: 10px; margin: 10px 0;";
+          "color: #a6e3a1; background-color: #1e2a1e; border: 1px solid #2d3f2d; border-radius: 4px; padding: 10px; margin: 10px 0;";
         formContainer.appendChild(successMessage);
 
         // Clear form

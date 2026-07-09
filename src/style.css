@@ -1,14 +1,30 @@
 :root {
 	box-sizing: border-box;
-	--bg-color: rgba(207, 207, 207);
+	--base: #1e1e2e;
+	--mantle: #181825;
+	--crust: #11111b;
+	--surface0: #313244;
+	--surface1: #45475a;
+	--surface2: #585b70;
+	--overlay0: #6c7086;
+	--text: #cdd6f4;
+	--subtext0: #a6adc8;
+	--blue: #89b4fa;
+	--green: #a6e3a1;
+	--red: #f38ba8;
+	--yellow: #f9e2af;
+	--peach: #fab387;
+	--mauve: #cba6f7;
+	--pink: #f5c2e7;
+	--teal: #94e2d5;
 	--my-font: "Droid Sans", sans-serif;
-	--blue-btn-color: rgb(0, 123, 255);
 }
 body {
-	background: var(--bg-color, beige);
+	background: var(--base);
 	font-family: var(--my-font, "Adwaita Sans", sans-serif);
 	box-sizing: border-box;
 	margin: 0;
+	color: var(--text);
 }
 
 #app {
@@ -42,14 +58,13 @@ nav {
 	align-items: start;
 	width: 100%;
 	height: 50px;
-	background-color: var(--bg-color);
-	color: white;
+	background-color: var(--surface0);
+	color: var(--text);
 	margin-bottom: 10px;
 }
 nav button {
-	background-color: #bd537c;
-	background: var(--bg-color);
-	color: saddlebrown;
+	background-color: var(--surface0);
+	color: var(--subtext0);
 	border: none;
 	padding: 10px 20px;
 	margin: 0 10px;
@@ -59,8 +74,8 @@ nav button {
 }
 
 .blueButton {
-	background-color: var(--blue-btn-color);
-	color: white;
+	background-color: var(--blue);
+	color: var(--crust);
 	border: none;
 	padding: 10px 20px;
 	margin: 0 10px;
@@ -98,19 +113,19 @@ div#projects {
 
 .project-card {
 	grid-row: 2 / 3;
-	background-color: #f0f0f0;
-	border: 1px solid #28a745;
+	background-color: var(--surface0);
+	border: 1px solid var(--green);
 	border-radius: 5px;
 	padding: 10px;
 	margin: 10px;
 	width: 300px;
 	cursor: pointer;
-	border-bottom: 2px solid #28a745;
+	border-bottom: 2px solid var(--green);
 }
 
 .todo-card {
-	background-color: white;
-	border: 1px solid #007bff;
+	background-color: var(--surface0);
+	border: 1px solid var(--blue);
 	border-radius: 5px;
 	padding: 5px;
 	margin: 10px;
@@ -133,6 +148,50 @@ form {
 	padding: 1rem;
 }
 
+input, select, textarea {
+	background: var(--surface0);
+	color: var(--text);
+	border: 1px solid var(--surface1);
+	border-radius: 4px;
+	padding: 8px;
+}
+
+.todo-details {
+	color: var(--text);
+}
+
+.todo-details h3 {
+	color: var(--blue);
+}
+
+.todo-list {
+	color: var(--text);
+}
+
+.validation-errors {
+	color: var(--red);
+}
+
+.blueButton:hover {
+	opacity: 0.9;
+}
+
+.project-card:hover {
+	transform: scale(1.02);
+	transition: transform 0.2s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.todo-card:hover {
+	transform: scale(1.02);
+	transition: transform 0.2s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+input[type="radio"] {
+	accent-color: var(--blue);
+}
+
 div#todos {
 	grid-column: 2 / 3;
 	grid-row: 3 / 4;
@@ -141,7 +200,7 @@ div#todos {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: white;
+	background-color: var(--mantle);
 	width: 30rem;
 	border-radius: 10px;
 	padding: 2px;
@@ -149,7 +208,7 @@ div#todos {
 }
 
 #content h2 {
-	border-bottom: 2px solid var(--blue-btn-color, #bd537c);
+	border-bottom: 2px solid var(--blue);
 	grid-column: 1 / -1;
 	grid-row: 1 / 2;
 	font-family: "Adwaita Mono", monospace;
@@ -161,17 +220,12 @@ div#todos {
 #menu {
 	display: flex;
 	flex-direction: row;
-	background-color: var(--bg-color);
+	background-color: var(--surface0);
 }
 
 /* Animations */
-.project-card:hover {
-	transform: scale(1.02);
-	transition: transform 0.2s;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 div#projects {
 	transform: scale(1.02);
 	transition: transform 0.2s;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
